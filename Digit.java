@@ -2,20 +2,22 @@ package p4_group_8_repo;
 
 import javafx.scene.image.Image;
 
-public class Digit extends Actor{
-	int dim;
-	Image im1;
+public class Digit extends StaticActor{
+
+
+	public Digit(String ImageLink, double size, double xPos, double yPos) {
+		super(ImageLink, size, xPos, yPos);
+	}
+
+
+	public void setDigit(int n){
+		Image digitImage = new Image("file:src/p4_group_8_repo/"+n+".png", size, size, true, true);
+	}
+
 	@Override
-	public void act(long now) {
-		// TODO Auto-generated method stub
-		
+	public String getActorClassName() {
+		return "Digit";
 	}
-	
-	public Digit(int n, int dim, int x, int y) {
-		im1 = new Image("file:src/p4_group_8_repo/"+n+".png", dim, dim, true, true);
-		setImage(im1);
-		setX(x);
-		setY(y);
-	}
+
 	
 }
