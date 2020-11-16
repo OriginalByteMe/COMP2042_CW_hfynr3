@@ -6,6 +6,11 @@ public abstract class StaticActor extends Actor{
     }
 
     @Override
+    public String getActorClassName() {
+        return "StaticActor";
+    }
+
+    @Override
     public void act() {
         // Do nothing
     }

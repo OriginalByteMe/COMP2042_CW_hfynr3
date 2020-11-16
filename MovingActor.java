@@ -1,7 +1,7 @@
 package p4_group_8_repo;
 
 public abstract class MovingActor extends Actor{
-    public MovingActor(String imageLink, int size, int xPos, int yPos) {
+    public MovingActor(String imageLink, double size, double xPos, double yPos) {
         super(imageLink,size,xPos,yPos);
     }
 

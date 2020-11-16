@@ -1,15 +1,13 @@
 package p4_group_8_repo;
 
-import javafx.scene.image.Image;
-
-public class Log extends Obstacle {
+public class Log extends obstacle {
 
 	private double speed;
 
 
-	public Log(String imageLink, int size, int xPos, int yPos, int speed, double speed1) {
+	public Log(String imageLink, double size, double xPos, double yPos, double speed) {
 		super(imageLink, size, xPos, yPos, speed);
-		this.speed = speed1;
+		this.speed = speed;
 	}
 
 	@Override

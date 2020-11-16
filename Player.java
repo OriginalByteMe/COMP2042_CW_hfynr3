@@ -10,7 +10,7 @@ public abstract class Player  extends MovingActor{
     private double startXPos;
     private double startYPos;
 
-    public Player(String imageLink, int size, int xPos, int yPos) {
+    public Player(String imageLink, double size, double xPos, double yPos) {
         super(imageLink, size, xPos, yPos);
         this.startXPos = xPos;
         this.startYPos = yPos;
