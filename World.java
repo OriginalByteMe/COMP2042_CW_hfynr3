@@ -10,10 +10,13 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+
+
 
 
 public abstract class World extends Pane {
@@ -85,12 +88,16 @@ public abstract class World extends Pane {
     public void stop() {
         timer.stop();
     }
-    
-    public void add(Actor actor) {
-        getChildren().add(actor);
-    }
 
-    public void remove(Actor actor) {
+	public void add(ImageView actor) {
+		if(actor == null){
+			actor = new ImageView();
+		}else{
+			getChildren().add(actor);
+		}
+	}
+
+    public void remove(ImageView actor) {
         getChildren().remove(actor);
     }
 

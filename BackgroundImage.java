@@ -8,7 +8,6 @@ public class BackgroundImage extends ImageView {
 	
 	public BackgroundImage(String imageLink) {
 		setImage(new Image(imageLink, 600, 800, true, true));
-		
-	}
 
+	}
 }

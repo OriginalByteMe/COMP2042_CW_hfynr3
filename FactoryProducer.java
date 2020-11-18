@@ -1,7 +1,7 @@
 package p4_group_8_repo;
 
 public class FactoryProducer {
-
+    // Allowing an instance of the FactoryProducer to be created
     private static FactoryProducer factory = new FactoryProducer();
     private FactoryProducer() {}
     public static FactoryProducer getActorFactoryProducer() {

@@ -8,11 +8,12 @@ public class ActorGroupToWindow {
     private double speed = 0;
     private double startXPos;
     private double yPos = 0;
-    private double shift = 0;
+    private double shift = 0; // To space out sprites equally (on x axis)
     private int amount = 0;
     private String imageLink = "";
     private String ActorType =  "";
     private String ActorGroup;
+
 
     public void setSize(double size) {
         this.size = size;
@@ -46,11 +47,15 @@ public class ActorGroupToWindow {
         ActorType = actorType;
     }
 
+    public ActorGroupToWindow(String actorGroup) {
+        ActorGroup = actorGroup;
+    }
+
     public void setActorGroup(String actorGroup) {
         ActorGroup = actorGroup;
     }
 
-    public List<Actor> AddToWindow(MyStage window){
+    public List<Actor> AddToWindow(MyStage area){
         List<Actor> added = new ArrayList<>();
 
         FactoryProducer factoryProducer = FactoryProducer.getActorFactoryProducer();
@@ -69,7 +74,7 @@ public class ActorGroupToWindow {
 
             added.add(actor);
 
-            window.add(actor);
+            area.add(actor);
 
         }
 
