@@ -11,7 +11,8 @@ public class Digit extends StaticActor{
 
 
 	public void setDigit(int n){
-		Image digitImage = new Image("file:src/p4_group_8_repo/"+n+".png", size, size, true, true);
+		Image digitImage = new Image("file:src/Resources/" + n +".png", size, size, true, true);
+		setImage(digitImage);
 	}
 
 	@Override

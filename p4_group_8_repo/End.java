@@ -3,7 +3,7 @@ package p4_group_8_repo;
 import javafx.scene.image.Image;
 
 public class End extends StaticActor{
-	boolean activated = false;
+	private boolean activated = false;
 
 
 	public End(String ImageLink, double size, double xPos, double yPos) {
@@ -13,10 +13,11 @@ public class End extends StaticActor{
 
 	@Override
 	public String getActorClassName() {
-		return null;
+		return "End";
 	}
 
 	public void activate(){
+		setImage(new Image("file:src/Resources/FrogEnd.png", 70, 70, true, true));
 		activated = true;
 	}
 
@@ -30,6 +31,6 @@ public class End extends StaticActor{
 	}
 
 
-	
+
 
 }

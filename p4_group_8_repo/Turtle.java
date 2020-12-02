@@ -11,12 +11,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Turtle extends obstacle {
-//	Image turtle1;
-//	Image turtle2;
-//	Image turtle3;
-//	private int speed;
-//	int i = 1;
-	boolean bool = true;
 
 	public Turtle(String imageLink, double size, double xPos, double yPos, double speed) {
 		super(imageLink, size, xPos, yPos, speed);
@@ -26,9 +20,9 @@ public class Turtle extends obstacle {
 	public void animationCompile(){
 		List<Image> turtleFrames = new ArrayList<>();
 
-		Image firstFrame = new Image("file:src/p4_group_8_repo/TurtleAnimation2.png", size, size, true, true);
+		Image firstFrame = new Image("file:src/Resources/TurtleAnimation2.png", size, size, true, true);
 		Image secondFrame = ActorImage; // Second frame is where tutrtle is in idle animation
-		Image thirdFrame = new Image("file:src/p4_group_8_repo/TurtleAnimation3.png", size, size, true, true);
+		Image thirdFrame = new Image("file:src/Resources/TurtleAnimation3.png", size, size, true, true);
 
 		turtleFrames.addAll(Arrays.asList(firstFrame, secondFrame, thirdFrame));
 

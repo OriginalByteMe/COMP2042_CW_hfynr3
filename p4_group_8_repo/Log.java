@@ -17,7 +17,13 @@ public class Log extends obstacle {
 		handleOutOfBounds();
 	}
 	
-
+//	@Override
+//	public void handleOutOfBounds(){
+//		if (getX() > 700 && speed>0)
+//			setX(-200);
+//		if (getX() < -50 && speed<0)
+//			setX(600);
+//	}
 	public boolean getLeft() {
 		return speed < 0;
 	}

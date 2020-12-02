@@ -48,7 +48,7 @@ public abstract class Actor extends ImageView{
 
 
     // Seemingly useless code might delete later
-/*
+
     public <A extends Actor> A getOneIntersectingObject(java.lang.Class<A> cls) {
         ArrayList<A> someArray = new ArrayList<A>();
         for (A actor: getWorld().getObjects(cls)) {
@@ -59,7 +59,7 @@ public abstract class Actor extends ImageView{
         }
         return someArray.get(0);
     }
-*/
+
     // For Reference:
     // https://netopyr.com/2012/03/09/creating-a-sprite-animation-with-javafx/
     // https://stackoverflow.com/questions/47876381/javafx-and-sprite-animation-how-do-i-make-an-animation-cycle-to-change-pictures
@@ -67,7 +67,7 @@ public abstract class Actor extends ImageView{
     public Transition animate(List<Image> images, int milliseconds) {
         Transition animation = new Transition() {
             {
-                setCycleDuration(Duration.millis(1000)); // total time for animation
+                setCycleDuration(Duration.millis(milliseconds)); // total time for animation
             }
 
             /* Interpolation method override required to create instance of Transition */

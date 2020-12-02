@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.stage.*?>
+
+<Stage title="Frogger Game" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <scene>
+        <Scene>
+            <AnchorPane prefHeight="800.0" prefWidth="590.0" styleClass="anchor" stylesheets="@../Resources/game.css">
+            <children>
+               <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" styleClass="anchor">
+                  <image>
+                     <Image url="@../Resources/froggerUp.png" />
+                  </image></ImageView>
+               <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
+            </children></AnchorPane>
+        </Scene>
+    </scene>
+</Stage>

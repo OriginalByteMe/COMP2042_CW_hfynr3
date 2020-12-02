@@ -27,7 +27,7 @@ public abstract class Player  extends MovingActor{
             move( movement * 2, 0 );
         }
 
-        else if (getX() > 600) {
+        else if (getX() > 800) {
             move( -movement * 2, 0 );
         }
     }

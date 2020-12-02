@@ -27,7 +27,7 @@ public class ActorGroupToWindow {
         this.startXPos = startXPos;
     }
 
-    public void setyPos(double yPos) {
+    public void setYPos(double yPos) {
         this.yPos = yPos;
     }
 
@@ -51,9 +51,6 @@ public class ActorGroupToWindow {
         ActorGroup = actorGroup;
     }
 
-    public void setActorGroup(String actorGroup) {
-        ActorGroup = actorGroup;
-    }
 
     public List<Actor> AddToWindow(MyStage area){
         List<Actor> added = new ArrayList<>();
@@ -66,9 +63,9 @@ public class ActorGroupToWindow {
             ((ObstacleFactory) factory).setSpeed(speed);
         }
 
-        for(int iterator = 0; iterator < amount; iterator++) {
+        for(int i = 0; i < amount; i++) {
 
-            final double actualXPos = startXPos + shift * iterator;
+            final double actualXPos = startXPos + shift * i;
 
             Actor actor = factory.getActor(ActorType, imageLink, size,  actualXPos, yPos);
 
@@ -80,4 +77,5 @@ public class ActorGroupToWindow {
 
         return added;
     }
+
 }
