@@ -7,11 +7,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -19,18 +22,19 @@ import java.util.List;
 public class Main extends Application {
     private AnimationTimer timer;
     private MyStage game;
-    private MyStage menu;
+//    private MyStage menu;
     private List<Actor> players;
     private List<Actor> score;
     private int level = 1;
     private LevelMaker level1,level2,level3,level4;
-    Scene menuScene, gameScene, scene1,scene2,scene3;
+    Scene menuScene, infoScene, levelChoiceScene;
+    Scene gameScene, level1Scene,level2Scene,level3Scene,level4Scene,level5Scene,level6Scene,level7Scene,level8Scene,level9Scene,level10Scene;
 
     private Stage primaryStage;
 
 
 //    private AnchorPane content;
-    private AnchorPane gameRoot;
+    private AnchorPane menu;
 
 
 
@@ -40,6 +44,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        createInfo(primaryStage);
 //        menuController control = new menuController();
 
         //Game Scene
@@ -69,8 +74,10 @@ public class Main extends Application {
 //        Scene gamer = new Scene(gameRoot, 590, 800);
 
 
-        AnchorPane content = createMenu(primaryStage);
-        menuScene = new Scene(content,553,415);
+//        menu = createMenu(primaryStage);
+
+        createMenu(primaryStage);
+//        menuScene = new Scene(menu,553,415);
 
 //        menuScene = new Scene(root);
 
@@ -81,39 +88,151 @@ public class Main extends Application {
         primaryStage.show();
         start();
     }
-    public void nextLvl(){
 
-    }
-    public AnchorPane createMenu(Stage primaryStage){
+    public AnchorPane createLevel1(Stage primaryStage){
         AnchorPane contents = new AnchorPane();
-        contents.setPrefWidth(553);
-        contents.setPrefHeight(415);
+        addPlayer();
+        addStatic();
+        LevelMaker level = new LevelMaker(game,score);
+        return contents;
+    }
+    public AnchorPane createLevel2(Stage primaryStage){
+        AnchorPane contents = new AnchorPane();
+        addPlayer();
+        addStatic();
+        LevelMaker level = new LevelMaker(game,score);
+        return contents;
+    }
+    public AnchorPane createLevel3(Stage primaryStage){
+        AnchorPane contents = new AnchorPane();
+        LevelMaker level = new LevelMaker(game,score);
+        return contents;
+    }
+    public AnchorPane createLevel4(Stage primaryStage){
+        AnchorPane contents = new AnchorPane();
+        LevelMaker level = new LevelMaker(game,score);
+        return contents;
+    }
+    public AnchorPane createLevel5(Stage primaryStage){
+        AnchorPane contents = new AnchorPane();
+        LevelMaker level = new LevelMaker(game,score);
+        return contents;
+    }
+    public AnchorPane createLevel6(Stage primaryStage){
+        AnchorPane contents = new AnchorPane();
+
+        return contents;
+    }
+    public AnchorPane createLevel7(Stage primaryStage){
+        AnchorPane contents = new AnchorPane();
+
+        return contents;
+    }
+    public AnchorPane createLevel8(Stage primaryStage){
+        AnchorPane contents = new AnchorPane();
+
+        return contents;
+    }
+    public AnchorPane createLevel9(Stage primaryStage){
+        AnchorPane contents = new AnchorPane();
+
+        return contents;
+    }
+    public AnchorPane createLevel10(Stage primaryStage){
+        AnchorPane contents = new AnchorPane();
+
+        return contents;
+    }
+
+    public void createLvlChooser(Stage primaryStage){
+        AnchorPane contents = new AnchorPane();
+        Label title= new Label("Frogger");
+        title.setLayoutX(204.0);
+        title.setLayoutY(30);
+        title.setTextFill(Paint.valueOf("#0edd34"));
+        title.setFont(Font.font("Cambria Bold Italic",50.0));
+        Button level1Btn,level2Btn,level3Btn,level4Btn,level5Btn,level6Btn,level8Btn,level9Btn,level10Btn;
+
+        level1Btn = new Button("Level1");
+        level1Btn.setLayoutX(14);
+        level1Btn.setLayoutY(361);
+        level1Btn.prefHeight(25.0);
+        level1Btn.prefWidth(57.0);
+        level1Btn.setOnAction(e -> primaryStage.setScene(level1Scene));
+//        contents.getChildren().addAll(title, txtArea,backBtn);
+        levelChoiceScene = new Scene(contents);
+    }
+    public void createInfo(Stage primaryStage){
+        AnchorPane contents = new AnchorPane();
+        contents.setPrefWidth(600);
+        contents.setPrefHeight(400);
 
         Label title= new Label("Frogger");
-        title.setLayoutX(181.0);
+        title.setLayoutX(204.0);
+        title.setLayoutY(20);
+        title.setTextFill(Paint.valueOf("#0edd34"));
+        title.setFont(Font.font("Cambria Bold Italic",50.0));
+
+        Button backBtn = new Button("Back");
+        backBtn.setLayoutX(14);
+        backBtn.setLayoutY(361);
+        backBtn.prefHeight(25.0);
+        backBtn.prefWidth(57.0);
+        backBtn.setOnAction(e -> primaryStage.setScene(menuScene));
+
+        Label text = new Label();
+        text.setWrapText(true);
+        text.setLayoutX(22);
+        text.setLayoutY(88);
+        text.setText("Rules:\n - Use W,A,S,D to control the Frog\n - Avoid obstacles such as trucks and cars\n - Use Logs and turtles to move across water (becareful of the turtles that sink!)\n - To score points avoid obstacles and reach the end goals \n");
+        text.setFont(Font.font("Arial Black",12.0));
+
+
+        contents.getChildren().addAll(title, text,backBtn);
+        infoScene = new Scene(contents);
+
+    }
+
+
+    public void createMenu(Stage primaryStage){
+        AnchorPane contents = new AnchorPane();
+        contents.setPrefWidth(600);
+        contents.setPrefHeight(400);
+
+        Label title= new Label("Frogger");
+        title.setLayoutX(204.0);
         title.setLayoutY(30);
         title.setTextFill(Paint.valueOf("#0edd34"));
         title.setFont(Font.font("Cambria Bold Italic",50.0));
 
         Image image = new Image("file:src/Resources/smiiling-big-eyed-green-frog-clipart-6926.jpg");
         ImageView coverIMG = new ImageView(image);
-        coverIMG.setX(163.0);
+        coverIMG.setX(186.0);
         coverIMG.setY(96.0);
-        coverIMG.setFitWidth(228);
-        coverIMG.setFitHeight(175);
+        coverIMG.setFitWidth(228.0);
+        coverIMG.setFitHeight(175.0);
         coverIMG.setPickOnBounds(true);
         coverIMG.setPreserveRatio(true);
 
-        Button playBtn= new Button("Play");
-        playBtn.setLayoutX(249);
-        playBtn.setLayoutY(272);
+        Button playBtn= new Button("Choose Level");
+        playBtn.setLayoutX(242);
+        playBtn.setLayoutY(268);
         playBtn.prefHeight(25.0);
         playBtn.prefWidth(57.0);
+        Font font = new Font(18.0);
+        playBtn.setFont(font);
         playBtn.setOnAction(e -> primaryStage.setScene(gameScene));
 //        Parent root = FXMLLoader.load(getClass().getResource("menu.fxml"));
 
-        contents.getChildren().addAll(title, playBtn,coverIMG);
-        return contents;
+        Button infoBtn = new Button("Info");
+        infoBtn.setLayoutX(282);
+        infoBtn.setLayoutY(322);
+        infoBtn.prefHeight(25.0);
+        infoBtn.prefWidth(57.0);
+        infoBtn.setOnAction(e -> primaryStage.setScene(infoScene));
+
+        contents.getChildren().addAll(title, playBtn,infoBtn,coverIMG);
+        menuScene = new Scene(contents);
 
     }
     public void createTimer() {

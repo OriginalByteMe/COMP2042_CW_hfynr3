@@ -5,21 +5,21 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="415.0" prefWidth="553.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="p4_group_8_repo.menuController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="p4_group_8_repo.menuController">
    <children>
-      <Button layoutX="249.0" layoutY="272.0" mnemonicParsing="false" onAction="#playGameButton" text="Play" wrapText="true">
+      <Button layoutX="242.0" layoutY="268.0" mnemonicParsing="false" onAction="#playGameButton" text="Select Level" wrapText="true">
          <font>
             <Font size="18.0" />
          </font></Button>
-      <ImageView fitHeight="175.0" fitWidth="228.0" layoutX="163.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="175.0" fitWidth="228.0" layoutX="186.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Resources/smiiling-big-eyed-green-frog-clipart-6926.jpg" />
          </image></ImageView>
-      <Label layoutX="181.0" layoutY="30.0" text="Frogger" textFill="#0edd34">
+      <Label layoutX="204.0" layoutY="30.0" text="Frogger" textFill="#0edd34">
          <font>
             <Font name="Cambria Bold Italic" size="53.0" />
          </font>
       </Label>
-      <Button layoutX="249.0" layoutY="320.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" text="Info" />
+      <Button layoutX="272.0" layoutY="313.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" text="Info" />
    </children>
 </AnchorPane>
