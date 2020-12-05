@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="800.0" prefWidth="590.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="p4_group_8_repo.MainStage">
+   <children>
+      <Button layoutX="269.0" layoutY="375.0" mnemonicParsing="false" text="Next Scene" />
+      <Label layoutX="331.0" layoutY="149.0" text="Label" />
+   </children>
+</AnchorPane>
