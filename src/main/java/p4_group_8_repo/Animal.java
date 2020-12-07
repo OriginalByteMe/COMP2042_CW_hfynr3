@@ -78,7 +78,7 @@ public class Animal extends Player {
 			waterDeath();
 			return;
 		}
-		if(endReached){
+		else if(endReached){
 			handleEnd((End) actor);
 			return;
 		}
@@ -136,9 +136,9 @@ public class Animal extends Player {
 	public void waterDeath(){
 		stop = true;
 		List<Image> images = new ArrayList<>();
-		Image cD1 = new Image("file:src/Resources/cardeath1.png", size,size , true, true);
-		Image cD2 = new Image("file:src/Resources/cardeath2.png", size,size , true, true);
-		Image cD3 = new Image("file:src/Resources/cardeath3.png", size,size , true, true);
+		Image cD1 = new Image("file:src/main/resources/cardeath1.png", size,size , true, true);
+		Image cD2 = new Image("file:src/main/resources/cardeath2.png", size,size , true, true);
+		Image cD3 = new Image("file:src/main/resources/cardeath3.png", size,size , true, true);
 
 		images.addAll(Arrays.asList(cD1,cD2,cD3));
 
@@ -150,10 +150,10 @@ public class Animal extends Player {
 	public void carDeath(){
 		stop = true;
 		List<Image> images = new ArrayList<>();
-		Image wD1 = new Image("file:src/Resources/waterdeath1.png", size,size , true, true);
-		Image wD2 = new Image("file:src/Resources/waterdeath2.png", size,size , true, true);
-		Image wD3 = new Image("file:src/Resources/waterdeath3.png", size,size , true, true);
-		Image wD4 = new Image("file:src/Resources/waterdeath4.png", size,size , true, true);
+		Image wD1 = new Image("file:src/main/resources/waterdeath1.png", size,size , true, true);
+		Image wD2 = new Image("file:src/main/resources/waterdeath2.png", size,size , true, true);
+		Image wD3 = new Image("file:src/main/resources/waterdeath3.png", size,size , true, true);
+		Image wD4 = new Image("file:src/main/resources/waterdeath4.png", size,size , true, true);
 
 		images.addAll(Arrays.asList(wD1,wD2,wD3,wD4));
 
@@ -217,7 +217,7 @@ public class Animal extends Player {
 		images.addAll(Arrays.asList(firstMove,secondMove));
 
 		MovementAnimator(images,milliseconds,0,-movementX);
-
+		addPoints(10);
 		if (endReached) {
 
 			addPoints(10);

@@ -7,34 +7,29 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.List;
 // https://gamedevelopment.tutsplus.com/tutorials/introduction-to-javafx-for-game-development--cms-23835
 public class Main extends Application {
     private AnimationTimer timer;
-    private MyStage game;
-//    private MyStage menu;
+    private MyStage menu;
     private List<Actor> players;
     private List<Actor> score;
-    private int level = 1;
-    private LevelMaker level1,level2,level3,level4;
-    Scene menuScene, infoScene, levelChoiceScene;
-    Scene gameScene, level1Scene,level2Scene,level3Scene,level4Scene,level5Scene,level6Scene,level7Scene,level8Scene,level9Scene,level10Scene;
+    private Scene menuScene, infoScene, levelChoiceScene;
+    Scene level1Scene,level2Scene,level3Scene,level4Scene,level5Scene,level6Scene,level7Scene,level8Scene,level9Scene,level10Scene;
+    private BackgroundImage backgroundImage;
 
-    private Stage primaryStage;
+
 
 
 //    private AnchorPane content;
-    private AnchorPane menu;
+
 
 
 
@@ -44,106 +39,107 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        callLevels();
         createInfo(primaryStage);
-//        menuController control = new menuController();
-
-        //Game Scene
-//        gameRoot = (AnchorPane)FXMLLoader.load(getClass().getResource("game.fxml"));
-        BackgroundImage backgroundImage = new BackgroundImage("file:src/main/resources/FBackground1.jpg");
-
-        game = new MyStage();
-
-        gameScene = new Scene(game, 590, 800);
-        game.add(backgroundImage);
-
-
-        level1 = new LevelMaker(game,score);
-        level1.addCar(4,100,597,-1);
-        level1.addCar(4,500,475,-1);
-//        level1.addStatic();
-//        level1.endToWindow(2);
-//        addObstacle();
-        addPlayer();
-        addStatic();
-
-        level1.addStatic();
-//        level1.addPlayer();
-
-
-//        gameRoot.getChildren().add(game);
-//        Scene gamer = new Scene(gameRoot, 590, 800);
-
-
-//        menu = createMenu(primaryStage);
-
         createMenu(primaryStage);
-//        menuScene = new Scene(menu,553,415);
-
-//        menuScene = new Scene(root);
-
+        createLvlChooser(primaryStage);
 
         primaryStage.setTitle("Frogger Game!");
-        game.start();
+
         primaryStage.setScene(menuScene);
         primaryStage.show();
-        start();
+        start(menu);
     }
 
-    public AnchorPane createLevel1(Stage primaryStage){
-        AnchorPane contents = new AnchorPane();
-        addPlayer();
-        addStatic();
-        LevelMaker level = new LevelMaker(game,score);
-        return contents;
-    }
-    public AnchorPane createLevel2(Stage primaryStage){
-        AnchorPane contents = new AnchorPane();
-        addPlayer();
-        addStatic();
-        LevelMaker level = new LevelMaker(game,score);
-        return contents;
-    }
-    public AnchorPane createLevel3(Stage primaryStage){
-        AnchorPane contents = new AnchorPane();
-        LevelMaker level = new LevelMaker(game,score);
-        return contents;
-    }
-    public AnchorPane createLevel4(Stage primaryStage){
-        AnchorPane contents = new AnchorPane();
-        LevelMaker level = new LevelMaker(game,score);
-        return contents;
-    }
-    public AnchorPane createLevel5(Stage primaryStage){
-        AnchorPane contents = new AnchorPane();
-        LevelMaker level = new LevelMaker(game,score);
-        return contents;
-    }
-    public AnchorPane createLevel6(Stage primaryStage){
-        AnchorPane contents = new AnchorPane();
+    public void createTimer(MyStage stage) {
+        timer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                for(Actor Player: players) {
+                    if (( (Animal) Player).changeScore()) {
+                        setNumber(( (Animal) Player).getScore());
+                    }
+                    if (( (Animal) Player).getStop()) {
+                        System.out.print("STOPP:");
+                        stage.stopMusic();
+                        stop();
+                        stage.stop();
+                        Alert winAlert = new Alert(AlertType.INFORMATION);
+                        winAlert.setTitle("You Have Won The Game!");
+                        winAlert.setHeaderText("Your High Score: "+( (Animal) Player).getScore()+"!");
+                        winAlert.setContentText("Highest Possible Score: 800");
+                        winAlert.show();
 
-        return contents;
-    }
-    public AnchorPane createLevel7(Stage primaryStage){
-        AnchorPane contents = new AnchorPane();
-
-        return contents;
-    }
-    public AnchorPane createLevel8(Stage primaryStage){
-        AnchorPane contents = new AnchorPane();
-
-        return contents;
-    }
-    public AnchorPane createLevel9(Stage primaryStage){
-        AnchorPane contents = new AnchorPane();
-
-        return contents;
-    }
-    public AnchorPane createLevel10(Stage primaryStage){
-        AnchorPane contents = new AnchorPane();
-
-        return contents;
+                    }
+                }
+            }
+        };
     }
 
+    public void start(MyStage stage) {
+        stage.playMusic();
+        createTimer(stage);
+        timer.start();
+    }
+
+    public void stop() {
+        timer.stop();
+    }
+
+    public void setNumber(int n) {
+        for (Actor digit : score) {
+            final int number = n % 10;
+
+            ((Digit) digit).setDigit(number);
+
+            n /= 10;
+        }
+    }
+
+
+
+    public void createMenu(Stage primaryStage){
+        menu = new MyStage("src/main/resources/Frogger Main Song Theme (loop).mp3");
+        AnchorPane contents = new AnchorPane();
+        contents.setPrefWidth(600);
+        contents.setPrefHeight(400);
+
+        Label title= new Label("Frogger");
+        title.setLayoutX(204.0);
+        title.setLayoutY(30);
+        title.setTextFill(Paint.valueOf("#0edd34"));
+        title.setFont(Font.font("Cambria Bold Italic",50.0));
+
+        Image image = new Image("file:src/main/resources/smiiling-big-eyed-green-frog-clipart-6926.jpg");
+        ImageView coverIMG = new ImageView(image);
+        coverIMG.setX(186.0);
+        coverIMG.setY(96.0);
+        coverIMG.setFitWidth(228.0);
+        coverIMG.setFitHeight(175.0);
+        coverIMG.setPickOnBounds(true);
+        coverIMG.setPreserveRatio(true);
+
+        Button playBtn= new Button("Choose Level");
+        playBtn.setLayoutX(242);
+        playBtn.setLayoutY(268);
+        playBtn.prefHeight(25.0);
+        playBtn.prefWidth(57.0);
+        Font font = new Font(18.0);
+        playBtn.setFont(font);
+        playBtn.setOnAction(e -> primaryStage.setScene(levelChoiceScene));
+//        Parent root = FXMLLoader.load(getClass().getResource("menu.fxml"));
+
+        Button infoBtn = new Button("Info");
+        infoBtn.setLayoutX(282);
+        infoBtn.setLayoutY(322);
+        infoBtn.prefHeight(25.0);
+        infoBtn.prefWidth(57.0);
+        infoBtn.setOnAction(e -> primaryStage.setScene(infoScene));
+
+        contents.getChildren().addAll(title, playBtn,infoBtn,coverIMG);
+        menuScene = new Scene(contents);
+
+    }
     public void createLvlChooser(Stage primaryStage){
         AnchorPane contents = new AnchorPane();
         Label title= new Label("Frogger");
@@ -151,16 +147,106 @@ public class Main extends Application {
         title.setLayoutY(30);
         title.setTextFill(Paint.valueOf("#0edd34"));
         title.setFont(Font.font("Cambria Bold Italic",50.0));
-        Button level1Btn,level2Btn,level3Btn,level4Btn,level5Btn,level6Btn,level8Btn,level9Btn,level10Btn;
+        Button level1Btn,level2Btn,level3Btn,level4Btn,level5Btn,level6Btn,level7Btn,level8Btn,level9Btn,level10Btn;
 
         level1Btn = new Button("Level1");
-        level1Btn.setLayoutX(14);
-        level1Btn.setLayoutY(361);
-        level1Btn.prefHeight(25.0);
-        level1Btn.prefWidth(57.0);
+        level1Btn.setLayoutX(98);
+        level1Btn.setLayoutY(162);
+        level1Btn.setUnderline(true);
+        level1Btn.setTextFill(Paint.valueOf("#62cd3f"));
+        level1Btn.setFont(Font.font("Arial Rounded MT Bold", 12.0));
         level1Btn.setOnAction(e -> primaryStage.setScene(level1Scene));
-//        contents.getChildren().addAll(title, txtArea,backBtn);
-        levelChoiceScene = new Scene(contents);
+
+        level2Btn = new Button("Level2");
+        level2Btn.setLayoutX(180);
+        level2Btn.setLayoutY(162);
+        level2Btn.setUnderline(true);
+        level2Btn.setTextFill(Paint.valueOf("#62cd3f"));
+        level2Btn.setFont(Font.font("Arial Rounded MT Bold", 12.0));
+        level2Btn.setOnAction(e -> primaryStage.setScene(level2Scene));
+
+        level3Btn = new Button("Level3");
+        level3Btn.setLayoutX(253);
+        level3Btn.setLayoutY(162);
+        level3Btn.setUnderline(true);
+        level3Btn.setTextFill(Paint.valueOf("#62cd3f"));
+        level3Btn.setFont(Font.font("Arial Rounded MT Bold", 12.0));
+        level3Btn.setOnAction(e -> primaryStage.setScene(level3Scene));
+
+        level4Btn = new Button("Level4");
+        level4Btn.setLayoutX(331);
+        level4Btn.setLayoutY(162);
+        level4Btn.setUnderline(true);
+        level4Btn.setTextFill(Paint.valueOf("#62cd3f"));
+        level4Btn.setFont(Font.font("Arial Rounded MT Bold", 12.0));
+        level4Btn.setOnAction(e -> primaryStage.setScene(level4Scene));
+
+        level5Btn = new Button("Level5");
+        level5Btn.setLayoutX(404);
+        level5Btn.setLayoutY(162);
+        level5Btn.setUnderline(true);
+        level5Btn.setTextFill(Paint.valueOf("#62cd3f"));
+        level5Btn.setFont(Font.font("Arial Rounded MT Bold", 12.0));
+        level5Btn.setOnAction(e -> primaryStage.setScene(level5Scene));
+
+        level6Btn = new Button("Level6");
+        level6Btn.setLayoutX(98);
+        level6Btn.setLayoutY(214);
+        level6Btn.setUnderline(true);
+        level6Btn.setTextFill(Paint.valueOf("#62cd3f"));
+        level6Btn.setFont(Font.font("Arial Rounded MT Bold", 12.0));
+        level6Btn.setOnAction(e -> primaryStage.setScene(level6Scene));
+
+        level7Btn = new Button("Level7");
+        level7Btn.setLayoutX(180);
+        level7Btn.setLayoutY(214);
+        level7Btn.prefHeight(25.0);
+        level7Btn.prefWidth(57.0);
+        level7Btn.setUnderline(true);
+        level7Btn.setTextFill(Paint.valueOf("#62cd3f"));
+        level7Btn.setFont(Font.font("Arial Rounded MT Bold", 12.0));
+        level7Btn.setOnAction(e -> primaryStage.setScene(level7Scene));
+
+        level8Btn = new Button("Level8");
+        level8Btn.setLayoutX(253);
+        level8Btn.setLayoutY(214);
+        level8Btn.prefHeight(25.0);
+        level8Btn.prefWidth(57.0);
+        level8Btn.setUnderline(true);
+        level8Btn.setTextFill(Paint.valueOf("#62cd3f"));
+        level8Btn.setFont(Font.font("Arial Rounded MT Bold", 12.0));
+        level8Btn.setOnAction(e -> primaryStage.setScene(level8Scene));
+
+        level9Btn = new Button("Level9");
+        level9Btn.setLayoutX(331);
+        level9Btn.setLayoutY(214);
+        level9Btn.prefHeight(25.0);
+        level9Btn.prefWidth(57.0);
+        level9Btn.setUnderline(true);
+        level9Btn.setTextFill(Paint.valueOf("#62cd3f"));
+        level9Btn.setFont(Font.font("Arial Rounded MT Bold", 12.0));
+        level9Btn.setOnAction(e -> primaryStage.setScene(level9Scene));
+
+        level10Btn = new Button("Level10");
+        level10Btn.setLayoutX(14);
+        level10Btn.setLayoutY(214);
+        level10Btn.prefHeight(401);
+        level10Btn.prefWidth(214);
+        level10Btn.setUnderline(true);
+        level10Btn.setTextFill(Paint.valueOf("#62cd3f"));
+        level10Btn.setFont(Font.font("Arial Rounded MT Bold", 12.0));
+        level10Btn.setOnAction(e -> primaryStage.setScene(level10Scene));
+
+        Button backBtn = new Button("Back");
+        backBtn.setLayoutX(14);
+        backBtn.setLayoutY(361);
+        backBtn.prefHeight(25.0);
+        backBtn.prefWidth(57.0);
+        backBtn.setOnAction(e -> primaryStage.setScene(menuScene));
+
+
+        contents.getChildren().addAll(title, level1Btn,level2Btn,level3Btn,level4Btn,level5Btn,level6Btn,level7Btn,level8Btn,level9Btn,level10Btn,backBtn);
+        levelChoiceScene = new Scene(contents,600,400);
     }
     public void createInfo(Stage primaryStage){
         AnchorPane contents = new AnchorPane();
@@ -192,296 +278,178 @@ public class Main extends Application {
         infoScene = new Scene(contents);
 
     }
+    public void callLevels(){
+        createLevel1();
+//        createLevel2();
+//        createLevel3();
+//        createLevel4();
+//        createLevel5();
+//        createLevel6();
+//        createLevel7();
+//        createLevel8();
+//        createLevel9();
+//        createLevel10();
+    }
+    // Initializing items in levels
 
+    public void createLevel1(){
+        MyStage level1Stage = new MyStage();
+        level1Scene = new Scene(level1Stage, 590, 800);
+        backgroundImage = new BackgroundImage("file:src/main/resources/FBackground1.jpg");
+        level1Stage.add(backgroundImage);
 
-    public void createMenu(Stage primaryStage){
-        AnchorPane contents = new AnchorPane();
-        contents.setPrefWidth(600);
-        contents.setPrefHeight(400);
-
-        Label title= new Label("Frogger");
-        title.setLayoutX(204.0);
-        title.setLayoutY(30);
-        title.setTextFill(Paint.valueOf("#0edd34"));
-        title.setFont(Font.font("Cambria Bold Italic",50.0));
-
-        Image image = new Image("file:src/main/resources/smiiling-big-eyed-green-frog-clipart-6926.jpg");
-        ImageView coverIMG = new ImageView(image);
-        coverIMG.setX(186.0);
-        coverIMG.setY(96.0);
-        coverIMG.setFitWidth(228.0);
-        coverIMG.setFitHeight(175.0);
-        coverIMG.setPickOnBounds(true);
-        coverIMG.setPreserveRatio(true);
-
-        Button playBtn= new Button("Choose Level");
-        playBtn.setLayoutX(242);
-        playBtn.setLayoutY(268);
-        playBtn.prefHeight(25.0);
-        playBtn.prefWidth(57.0);
-        Font font = new Font(18.0);
-        playBtn.setFont(font);
-        playBtn.setOnAction(e -> primaryStage.setScene(gameScene));
-//        Parent root = FXMLLoader.load(getClass().getResource("menu.fxml"));
-
-        Button infoBtn = new Button("Info");
-        infoBtn.setLayoutX(282);
-        infoBtn.setLayoutY(322);
-        infoBtn.prefHeight(25.0);
-        infoBtn.prefWidth(57.0);
-        infoBtn.setOnAction(e -> primaryStage.setScene(infoScene));
-
-        contents.getChildren().addAll(title, playBtn,infoBtn,coverIMG);
-        menuScene = new Scene(contents);
+        LevelMaker level1 = new LevelMaker(level1Stage,score);
+        level1.addCar(4,100,597,-1);
+        level1.addCar(4,500,475,-1);
+        level1.addTruckSmall(3,0,649,1);
+        level1.addTruckBig(2,0,540,1);
+        level1.addLogBig(3,0,166,0.75);
+        level1.addLogBig(3,50,329,0.75);
+        level1.addLogSmall(2,0,276,-2);
+        level1.addDryTurtle(2,300,370,-1);
+        level1.addWetTurtle(1,700,370,-1);
+        level1.addWetTurtle(3,200,217,-1);
+        addPlayer(level1Stage);
+        addStatic(level1Stage);
+        level1Stage.start();
 
     }
-    public void createTimer() {
-        timer = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                for(Actor Player: players) {
-                    if (( (Animal) Player).changeScore()) {
-                        setNumber(( (Animal) Player).getScore());
-                    }
-                    if (( (Animal) Player).getStop()) {
-                        System.out.print("STOPP:");
-                        game.stopMusic();
-                        stop();
-                        game.stop();
-                        Alert winAlert = new Alert(AlertType.INFORMATION);
-                        winAlert.setTitle("You Have Won The Game!");
-                        winAlert.setHeaderText("Your High Score: "+( (Animal) Player).getScore()+"!");
-                        winAlert.setContentText("Highest Possible Score: 800");
-                        winAlert.show();
+    public void createLevel2(){
+        MyStage level2Stage = new MyStage();
+        level2Scene = new Scene(level2Stage, 590, 800);
+        backgroundImage = new BackgroundImage("file:src/main/resources/FBackground1.jpg");
+        level2Stage.add(backgroundImage);
+        addPlayer(level2Stage);
+        addStatic(level2Stage);
+        LevelMaker level2 = new LevelMaker(level2Stage,score);
 
-                    }
-                }
-            }
-        };
+        level2Stage.start();
+    }
+    public void createLevel3(){
+        MyStage level3Stage = new MyStage();
+        level3Scene = new Scene(level3Stage, 590, 800);
+        backgroundImage = new BackgroundImage("file:src/main/resources/FBackground1.jpg");
+        level3Stage.add(backgroundImage);
+        addPlayer(level3Stage);
+        addStatic(level3Stage);
+        LevelMaker level3 = new LevelMaker(level3Stage,score);
+
+        level3Stage.start();
+    }
+    public void createLevel4(){
+        MyStage level4Stage = new MyStage("src/main/resources/Frogger Main Song Theme (loop).mp3");
+        level4Scene = new Scene(level4Stage, 590, 800);
+        backgroundImage = new BackgroundImage("file:src/main/resources/FBackground1.jpg");
+        level4Stage.add(backgroundImage);
+        addPlayer(level4Stage);
+        addStatic(level4Stage);
+        LevelMaker level4 = new LevelMaker(level4Stage,score);
+
+        level4Stage.start();
+    }
+    public void createLevel5(){
+        MyStage level5Stage = new MyStage();
+        level5Scene = new Scene(level5Stage, 590, 800);
+        backgroundImage = new BackgroundImage("file:src/main/resources/FBackground1.jpg");
+        level5Stage.add(backgroundImage);
+        addPlayer(level5Stage);
+        addStatic(level5Stage);
+        LevelMaker level5 = new LevelMaker(level5Stage,score);
+
+        level5Stage.start();
+    }
+    public void createLevel6(){
+        MyStage level6Stage = new MyStage("src/main/resources/Frogger Main Song Theme (loop).mp3");
+        level6Scene = new Scene(level6Stage, 590, 800);
+        backgroundImage = new BackgroundImage("file:src/main/resources/FBackground1.jpg");
+        level6Stage.add(backgroundImage);
+        addPlayer(level6Stage);
+        addStatic(level6Stage);
+        LevelMaker level6 = new LevelMaker(level6Stage,score);
+
+        level6Stage.start();
+    }
+    public void createLevel7(){
+        MyStage level7Stage = new MyStage();
+        level7Scene = new Scene(level7Stage, 590, 800);
+        backgroundImage = new BackgroundImage("file:src/main/resources/FBackground1.jpg");
+        level7Stage.add(backgroundImage);
+        addPlayer(level7Stage);
+        addStatic(level7Stage);
+        LevelMaker level7 = new LevelMaker(level7Stage,score);
+
+        level7Stage.start();
+    }
+    public void createLevel8(){
+        MyStage level8Stage = new MyStage();
+        level8Scene = new Scene(level8Stage, 590, 800);
+        backgroundImage = new BackgroundImage("file:src/main/resources/FBackground1.jpg");
+        level8Stage.add(backgroundImage);
+        addPlayer(level8Stage);
+        addStatic(level8Stage);
+        LevelMaker level8 = new LevelMaker(level8Stage,score);
+
+        level8Stage.start();
+    }
+    public void createLevel9(){
+        MyStage level9Stage = new MyStage();
+        level9Scene = new Scene(level9Stage, 590, 800);
+        backgroundImage = new BackgroundImage("file:src/main/resources/FBackground1.jpg");
+        level9Stage.add(backgroundImage);
+        addPlayer(level9Stage);
+        addStatic(level9Stage);
+        LevelMaker level9 = new LevelMaker(level9Stage,score);
+
+        level9Stage.start();
+    }
+    public void createLevel10(){
+        MyStage level10Stage = new MyStage();
+        level10Scene = new Scene(level10Stage, 590, 800);
+        backgroundImage = new BackgroundImage("file:src/main/resources/FBackground1.jpg");
+        level10Stage.add(backgroundImage);
+        addPlayer(level10Stage);
+        addStatic(level10Stage);
+        LevelMaker level10 = new LevelMaker(level10Stage,score);
+
+        level10Stage.start();
     }
 
-    public void start() {
-        game.playMusic();
-        createTimer();
-        timer.start();
-    }
-
-    public void stop() {
-        timer.stop();
-    }
-
-    public void setNumber(int n) {
-        for (Actor digit : score) {
-            final int number = n % 10;
-
-            ((Digit) digit).setDigit(number);
-
-            n /= 10;
-        }
-    }
 
 
-    public void addObstacle() {
-        ActorGroupToWindow grouper = new ActorGroupToWindow("ObstacleFactory");
 
-        addCar(grouper);
-        addLog(grouper);
-        addTurtles(grouper);
-        addTruck(grouper);
-
-    }
-
-    public void addPlayer() {
+    public void addPlayer(MyStage stage) {
         ActorGroupToWindow grouper = new ActorGroupToWindow("PlayerFactory");
         grouper.setStartXPos(300);
         grouper.setYPos(706);
         grouper.setAmount(1);
-        playerToWindow(grouper);
+        playerToWindow(grouper,stage);
     }
 
-    public void addStatic() {
+    public void addStatic(MyStage stage) {
         ActorGroupToWindow grouper = new ActorGroupToWindow("StaticActorFactory");
-
-//        grouper.setActorType("End");
-//        grouper.setAmount(1);
-//        grouper.setStartXPos(13); // Shift of 140
-//        grouper.setYPos(90);
-//        endToWindow(grouper);
-
         grouper.setActorType("Digit");
-        grouper.setAmount(3);
-        grouper.setStartXPos(360);
+        grouper.setAmount(5);
+        grouper.setStartXPos(460);
         grouper.setYPos(25);
-        digitToWindow(grouper);
+        digitToWindow(grouper,stage);
     }
 
-    /* Add Obstacles */
-    public void addCar(ActorGroupToWindow grouper) {
-        grouper.setActorType("Car");
-        grouper.setAmount(4);
-        grouper.setStartXPos(100); //Shift of 150
-        grouper.setYPos(597);
-        grouper.setSpeed(-1);
-        carToWindow(grouper);
-
-        grouper.setActorType("Car");
-        grouper.setAmount(1);
-        grouper.setStartXPos(500); //Shift of 150
-        grouper.setYPos(475);
-        grouper.setSpeed(-5);
-        carToWindow(grouper);
-
-    }
-
-    public void addLog(ActorGroupToWindow grouper) {
-        grouper.setActorType("Log");
-        grouper.setAmount(3);
-        grouper.setStartXPos(0); // Shift 200
-        grouper.setYPos(166);
-        grouper.setSpeed(0.75);
-        logBigToWindow(grouper);
-
-        grouper.setActorType("Log");
-        grouper.setAmount(3);
-        grouper.setStartXPos(50);
-        grouper.setYPos(329);
-        grouper.setSpeed(0.75);
-        logBigToWindow(grouper);
-
-        grouper.setActorType("Log");
-        grouper.setAmount(2);
-        grouper.setStartXPos(0); // Shift by 400
-        grouper.setYPos(276);
-        grouper.setSpeed(-2);
-        logSmallToWindow(grouper);
-    }
-
-    public void addTurtles(ActorGroupToWindow grouper) {
-        grouper.setActorType("Turtle");
-        grouper.setAmount(2);
-        grouper.setStartXPos(300); // Shift of 200
-        grouper.setYPos(370);
-        grouper.setSpeed(-1);
-        turtleToWindow(grouper);
-
-        grouper.setActorType("WetTurtle");
-        grouper.setAmount(1);
-        grouper.setStartXPos(700); // Shift of 200
-        grouper.setYPos(370);
-        grouper.setSpeed(-1);
-        turtleWetToWindow(grouper);
-
-        grouper.setActorType("WetTurtle");
-        grouper.setAmount(3);
-        grouper.setStartXPos(200); // Shift of 200
-        grouper.setYPos(217);
-        grouper.setSpeed(-1);
-        turtleWetToWindow(grouper);
-    }
-
-    public void addTruck(ActorGroupToWindow grouper) {
-        // Going to the right -->
-        grouper.setActorType("Car");
-        grouper.setAmount(3);
-        grouper.setStartXPos(0); // Shift of 300
-        grouper.setYPos(649);
-        grouper.setSpeed(1);
-        truckSmallToWindow(grouper);
-
-        grouper.setActorType("Car");
-        grouper.setAmount(2);
-        grouper.setStartXPos(0); // shift 500
-        grouper.setYPos(540);
-        grouper.setSpeed(1);
-        truckBigToWindow(grouper);
-
-    }
 
 
     /* Adding to window */
-    public void carToWindow(ActorGroupToWindow grouper) {
-        grouper.setImageLink("file:src/main/resources/car1Left.png");
-        grouper.setSize(50);
-        grouper.setShift(150);
-
-        grouper.AddToWindow(game);
-    }
-
-    public void turtleToWindow(ActorGroupToWindow grouper) {
-        grouper.setImageLink("file:src/main/resources/TurtleAnimation2.png");
-        grouper.setSize(80);
-        grouper.setShift(200);
-
-        grouper.AddToWindow(game);
-    }
-
-    public void turtleWetToWindow(ActorGroupToWindow grouper) {
-        grouper.setImageLink("file:src/main/resources/TurtleAnimation2.png");
-        grouper.setSize(80);
-        grouper.setShift(200);
-
-        grouper.AddToWindow(game);
-    }
-
-    public void truckSmallToWindow(ActorGroupToWindow grouper) {
-        grouper.setImageLink("file:src/main/resources/truck1" + "Right.png");
-        grouper.setSize(120);
-        grouper.setShift(300);
-
-        grouper.AddToWindow(game);
-    }
-
-    public void truckBigToWindow(ActorGroupToWindow grouper) {
-        grouper.setImageLink("file:src/main/resources/truck2Right.png");
-        grouper.setSize(200);
-        grouper.setShift(500);
-
-        grouper.AddToWindow(game);
-    }
-
-    public void logSmallToWindow(ActorGroupToWindow grouper) {
-        grouper.setImageLink("file:src/main/resources/logs.png");
-        grouper.setSize(300);
-        grouper.setShift(1300);
-
-        grouper.AddToWindow(game);
-    }
-
-    public void logBigToWindow(ActorGroupToWindow grouper) {
-        grouper.setImageLink("file:src/main/resources/log3.png");
-        grouper.setSize(150);
-        grouper.setShift(200);
-
-        grouper.AddToWindow(game);
-    }
-
-    public void digitToWindow(ActorGroupToWindow grouper) {
+    public void digitToWindow(ActorGroupToWindow grouper, MyStage stage) {
         grouper.setImageLink("file:src/main/resources/0.png");
         grouper.setSize(30);
         grouper.setShift(-30);
-
-        score = grouper.AddToWindow(game);
+        score = grouper.AddToWindow(stage);
     }
 
-    public void endToWindow(ActorGroupToWindow grouper) {
-        grouper.setImageLink("file:src/main/resources/End.png");
-        grouper.setSize(60);
-        grouper.setShift(128.2);
-
-        grouper.AddToWindow(game);
-    }
-
-    public void playerToWindow(ActorGroupToWindow grouper) {
+    public void playerToWindow(ActorGroupToWindow grouper, MyStage stage) {
         grouper.setActorType("Animal");
-
         grouper.setImageLink("file:src/main/resources/froggerUp.png");
-
         grouper.setShift(160);
-
         grouper.setSize(40);
-
-
-        players = grouper.AddToWindow(game);
+        players = grouper.AddToWindow(stage);
     }
 }
 /*
