@@ -15,7 +15,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
+
 
 // https://gamedevelopment.tutsplus.com/tutorials/introduction-to-javafx-for-game-development--cms-23835
 public class Main extends Application {
@@ -23,17 +23,9 @@ public class Main extends Application {
     private MyStage menu;
     private List<Actor> players;
     private List<Actor> score;
-    private List<Actor> digits;
     private Scene menuScene, infoScene, levelChoiceScene;
     Scene level1Scene,level2Scene,level3Scene,level4Scene,level5Scene,level6Scene,level7Scene,level8Scene,level9Scene,level10Scene;
     private BackgroundImage backgroundImage;
-    private int createLevel;
-
-
-
-
-//    private AnchorPane content;
-
 
 
 
@@ -104,20 +96,6 @@ public class Main extends Application {
 
 
     public void callLevels(){
-//        switch (level) {
-//            case 1:
-//                createLevel1();
-//                break;
-//            case 2:
-//                createLevel2();
-//                break;
-//            default:
-//                Alert noLevel = new Alert(AlertType.INFORMATION);
-//                noLevel.setTitle("No level detected");
-//                noLevel.setContentText("No Level has been created so error has occured");
-//                break;
-//
-//        }
         createLevel1();
         createLevel2();
         createLevel3();
@@ -179,122 +157,60 @@ public class Main extends Application {
         title.setLayoutY(30);
         title.setTextFill(Paint.valueOf("#0edd34"));
         title.setFont(Font.font("Cambria Bold Italic",50.0));
-        Button level1Btn,level2Btn,level3Btn,level4Btn,level5Btn,level6Btn,level7Btn,level8Btn,level9Btn,level10Btn;
 
-        level1Btn = new Button("Level1");
-        level1Btn.setLayoutX(98);
-        level1Btn.setLayoutY(162);
-        level1Btn.setUnderline(true);
-        level1Btn.setTextFill(Paint.valueOf("#62cd3f"));
-        level1Btn.setFont(Font.font("Arial Rounded MT Bold", 12.0));
-//        level1Btn.setOnAction(e -> primaryStage.setScene(level1Scene));
+        Button level1Btn = getLvlBtn("Level 1", 98,162);
         level1Btn.setOnAction(actionEvent ->  {
             createLevel1();
             primaryStage.setScene(level1Scene);
         });
-
-        level2Btn = new Button("Level2");
-        level2Btn.setLayoutX(180);
-        level2Btn.setLayoutY(162);
-        level2Btn.setUnderline(true);
-        level2Btn.setTextFill(Paint.valueOf("#62cd3f"));
-        level2Btn.setFont(Font.font("Arial Rounded MT Bold", 12.0));
+        Button level2Btn = getLvlBtn("Level 2", 180,162);
         level2Btn.setOnAction(actionEvent ->  {
             createLevel2();
             primaryStage.setScene(level2Scene);
         });
 
-        level3Btn = new Button("Level3");
-        level3Btn.setLayoutX(253);
-        level3Btn.setLayoutY(162);
-        level3Btn.setUnderline(true);
-        level3Btn.setTextFill(Paint.valueOf("#62cd3f"));
-        level3Btn.setFont(Font.font("Arial Rounded MT Bold", 12.0));
+        Button level3Btn = getLvlBtn("Level 3",253,162);
         level3Btn.setOnAction(actionEvent ->  {
             createLevel3();
             primaryStage.setScene(level3Scene);
         });
 
-        level4Btn = new Button("Level4");
-        level4Btn.setLayoutX(331);
-        level4Btn.setLayoutY(162);
-        level4Btn.setUnderline(true);
-        level4Btn.setTextFill(Paint.valueOf("#62cd3f"));
-        level4Btn.setFont(Font.font("Arial Rounded MT Bold", 12.0));
+        Button level4Btn = getLvlBtn("Level 6",331,162);
         level4Btn.setOnAction(actionEvent ->  {
             createLevel4();
             primaryStage.setScene(level4Scene);
         });
-
-        level5Btn = new Button("Level5");
-        level5Btn.setLayoutX(404);
-        level5Btn.setLayoutY(162);
-        level5Btn.setUnderline(true);
-        level5Btn.setTextFill(Paint.valueOf("#62cd3f"));
-        level5Btn.setFont(Font.font("Arial Rounded MT Bold", 12.0));
+        Button level5Btn = getLvlBtn("Level 5",404,162);
         level5Btn.setOnAction(actionEvent ->  {
             createLevel5();
             primaryStage.setScene(level5Scene);
         });
 
-        level6Btn = new Button("Level6");
-        level6Btn.setLayoutX(98);
-        level6Btn.setLayoutY(214);
-        level6Btn.setUnderline(true);
-        level6Btn.setTextFill(Paint.valueOf("#62cd3f"));
-        level6Btn.setFont(Font.font("Arial Rounded MT Bold", 12.0));
+        Button level6Btn = getLvlBtn("Level 6", 98,214);
         level6Btn.setOnAction(actionEvent ->  {
             createLevel6();
             primaryStage.setScene(level6Scene);
         });
 
-        level7Btn = new Button("Level7");
-        level7Btn.setLayoutX(180);
-        level7Btn.setLayoutY(214);
-        level7Btn.prefHeight(25.0);
-        level7Btn.prefWidth(57.0);
-        level7Btn.setUnderline(true);
-        level7Btn.setTextFill(Paint.valueOf("#62cd3f"));
-        level7Btn.setFont(Font.font("Arial Rounded MT Bold", 12.0));
+        Button level7Btn = getLvlBtn("Level 7",180,214);
         level7Btn.setOnAction(actionEvent ->  {
             createLevel7();
             primaryStage.setScene(level7Scene);
         });
 
-        level8Btn = new Button("Level8");
-        level8Btn.setLayoutX(253);
-        level8Btn.setLayoutY(214);
-        level8Btn.prefHeight(25.0);
-        level8Btn.prefWidth(57.0);
-        level8Btn.setUnderline(true);
-        level8Btn.setTextFill(Paint.valueOf("#62cd3f"));
-        level8Btn.setFont(Font.font("Arial Rounded MT Bold", 12.0));
+        Button level8Btn = getLvlBtn("Level 8",253,214);
         level8Btn.setOnAction(actionEvent ->  {
             createLevel8();
             primaryStage.setScene(level8Scene);
         });
 
-        level9Btn = new Button("Level9");
-        level9Btn.setLayoutX(331);
-        level9Btn.setLayoutY(214);
-        level9Btn.prefHeight(25.0);
-        level9Btn.prefWidth(57.0);
-        level9Btn.setUnderline(true);
-        level9Btn.setTextFill(Paint.valueOf("#62cd3f"));
-        level9Btn.setFont(Font.font("Arial Rounded MT Bold", 12.0));
+        Button level9Btn = getLvlBtn("level9",331,214);
         level9Btn.setOnAction(actionEvent ->  {
             createLevel9();
             primaryStage.setScene(level9Scene);
         });
 
-        level10Btn = new Button("Level10");
-        level10Btn.setLayoutX(14);
-        level10Btn.setLayoutY(214);
-        level10Btn.prefHeight(401);
-        level10Btn.prefWidth(214);
-        level10Btn.setUnderline(true);
-        level10Btn.setTextFill(Paint.valueOf("#62cd3f"));
-        level10Btn.setFont(Font.font("Arial Rounded MT Bold", 12.0));
+        Button level10Btn = getLvlBtn("level10",14,214);
         level10Btn.setOnAction(actionEvent ->  {
             createLevel10();
             primaryStage.setScene(level10Scene);
@@ -308,8 +224,7 @@ public class Main extends Application {
         backBtn.setOnAction(e -> primaryStage.setScene(menuScene));
 
 
-//        contents.getChildren().addAll(title, level1Btn,level2Btn,level3Btn,level4Btn,level5Btn,level6Btn,level7Btn,level8Btn,level9Btn,level10Btn,backBtn);
-        contents.getChildren().addAll(title,level1Btn,level2Btn,backBtn);
+        contents.getChildren().addAll(title, level1Btn,level2Btn,level3Btn,level4Btn,level5Btn,level6Btn,level7Btn,level8Btn,level9Btn,level10Btn,backBtn);
         levelChoiceScene = new Scene(contents,600,400);
     }
     public void createInfo(Stage primaryStage){
@@ -342,7 +257,17 @@ public class Main extends Application {
         infoScene = new Scene(contents);
 
     }
-
+    public Button getLvlBtn(String name,double x, double y){
+        Button button = new Button(name);
+        button.setLayoutX(x);
+        button.setLayoutY(y);
+        button.prefHeight(401);
+        button.prefWidth(214);
+        button.setUnderline(true);
+        button.setTextFill(Paint.valueOf("#62cd3f"));
+        button.setFont(Font.font("Arial Rounded MT Bold", 12.0));
+        return button;
+    }
     // Initializing items in levels
 
     public void createLevel1(){
