@@ -6,6 +6,7 @@ public class LevelMaker {
     private MyStage stage;
     private List<Actor> score;
     private List<Actor> players;
+    private List<Actor> obstacles;
     private ActorGroupToWindow obstacleFactory = new ActorGroupToWindow("ObstacleFactory");
     private ActorGroupToWindow playerFactory = new ActorGroupToWindow("PlayerFactory");
     private ActorGroupToWindow staticActorFactory = new ActorGroupToWindow("StaticActorFactory");
@@ -13,8 +14,6 @@ public class LevelMaker {
     public LevelMaker(MyStage game,List<Actor> score) {
         this.stage = game;
         this.score = score;
-//        this.players = players;
-//        addPlayer();
         addStatic();
     }
 
@@ -84,28 +83,10 @@ public class LevelMaker {
 
     }
 
-//    public void addPlayer() {
-//
-//        playerFactory.setStartXPos(300);
-//        playerFactory.setYPos(706);
-//        playerFactory.setAmount(1);
-//        playerToWindow();
-//    }
-//
 public void addStatic() {
-
-
-//    staticActorFactory.setActorType("End");
-//    staticActorFactory.setAmount(1);
-//    staticActorFactory.setStartXPos(13); // Shift of 140
-//    staticActorFactory.setYPos(90);
     endToWindow();
 //    digitToWindow();
 
-//    staticActorFactory.setActorType("Digit");
-//    staticActorFactory.setStartXPos(360);
-//    staticActorFactory.setYPos(25);
-//    digitToWindow();
 }
 
     public void carToWindow() {
@@ -154,8 +135,8 @@ public void addStatic() {
         obstacleFactory.setImageLink("file:src/main/resources/log3.png");
         obstacleFactory.setSize(150);
         obstacleFactory.setShift(200);
-
         obstacleFactory.AddToWindow(stage);
+
     }
     public void digitToWindow() {
 //        staticActorFactory.setImageLink("file:src/Resources/0.png");

@@ -217,7 +217,6 @@ public class Animal extends Player {
 		images.addAll(Arrays.asList(firstMove,secondMove));
 
 		MovementAnimator(images,milliseconds,0,-movementX);
-		addPoints(10);
 		if (endReached) {
 
 			addPoints(10);
