@@ -181,6 +181,7 @@ public class Animal extends Player {
 
 	/* Movement */
 
+
 	public EventHandler<KeyEvent> getKeyPressedHandler(){
 		EventHandler<KeyEvent> keyEventEventHandler = new EventHandler<KeyEvent>() {
 			@Override
