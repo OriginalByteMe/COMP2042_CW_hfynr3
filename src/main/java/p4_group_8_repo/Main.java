@@ -277,16 +277,20 @@ public class Main extends Application {
         level1Stage.add(backgroundImage);
 
         LevelMaker level1 = new LevelMaker(level1Stage,score);
-        level1.addCar(4,100,597,-1);
-        level1.addCar(4,500,475,-1);
-        level1.addTruckSmall(3,0,649,1);
-        level1.addTruckBig(2,0,540,1);
-        level1.addLogBig(3,0,166,0.75);
-        level1.addLogBig(3,50,329,0.75);
-        level1.addLogSmall(2,0,276,-2);
-        level1.addDryTurtle(2,300,370,-1);
-        level1.addWetTurtle(1,700,370,-1);
-        level1.addWetTurtle(3,200,217,-1);
+        level1.addTruckSmall(3,0,1,1);
+        level1.addCar(4,500,2,2,'R');
+        level1.addTruckBig(2,0,3,1);
+        level1.addCar(4,100,4,2,'R');
+        level1.addTruckSmall(3,0,5,1);
+
+
+        level1.addLogBig(3,0,1);
+        level1.addWetTurtle(3,200,2);
+        level1.addLogSmall(2,0,3);
+        level1.addLogBig(3,50,4);
+        level1.addDryTurtle(2,300,5);
+        level1.addWetTurtle(1,700,5);
+
         addPlayer(level1Stage);
         addStatic(level1Stage);
         level1Stage.start();
@@ -297,10 +301,20 @@ public class Main extends Application {
         level2Scene = new Scene(level2Stage, 590, 800);
         backgroundImage = new BackgroundImage("file:src/main/resources/FBackground1.jpg");
         level2Stage.add(backgroundImage);
+
+        LevelMaker level2 = new LevelMaker(level2Stage,score);
+        level2.addCar(4,0,5,2,'R');
+        level2.addCar(4,0,4,3,'L');
+        level2.addCar(3,50,3,2,'R');
+        level2.addCar(2,500,2,3,'L');
+
+        level2.addWetTurtle(3,200,5);
+        level2.addLogSmall(2,0,4);
+        level2.addLogBig(1,0,3);
+        level2.addWetTurtle(4,0,2);
+        level2.addLogBig(3,100,1);
         addPlayer(level2Stage);
         addStatic(level2Stage);
-        LevelMaker level2 = new LevelMaker(level2Stage,score);
-
         level2Stage.start();
     }
     public void createLevel3(){
@@ -308,20 +322,35 @@ public class Main extends Application {
         level3Scene = new Scene(level3Stage, 590, 800);
         backgroundImage = new BackgroundImage("file:src/main/resources/FBackground1.jpg");
         level3Stage.add(backgroundImage);
+
+        LevelMaker level3 = new LevelMaker(level3Stage,score);
+        level3.addCar(4,0,5,2,'R');
+        level3.addCar(4,0,4,2,'L');
+        level3.addCar(5,0,3,2,'R');
+        level3.addCar(2,500,2,1,'L');
+        level3.addCar(3,50,1,2,'R');
+
+        level3.addWetTurtle(3,100,5);
+        level3.addLogSmall(3,0,4);
+        level3.addLogLong(1,0,3);
+        level3.addDryTurtle(4,300,2);
+        level3.addLogSmall(3,0,1);
         addPlayer(level3Stage);
         addStatic(level3Stage);
-        LevelMaker level3 = new LevelMaker(level3Stage,score);
-
         level3Stage.start();
     }
+    //
     public void createLevel4(){
-        MyStage level4Stage = new MyStage("src/main/resources/Frogger Main Song Theme (loop).mp3");
+        MyStage level4Stage = new MyStage();
         level4Scene = new Scene(level4Stage, 590, 800);
         backgroundImage = new BackgroundImage("file:src/main/resources/FBackground1.jpg");
         level4Stage.add(backgroundImage);
+        LevelMaker level4 = new LevelMaker(level4Stage,score);
+        level4.addCar(4,0,5,2,'R');
+        level4.addCar(4,0,4,2,'L');
+        level4.addCar(4,0,3,2,'R');
         addPlayer(level4Stage);
         addStatic(level4Stage);
-        LevelMaker level4 = new LevelMaker(level4Stage,score);
 
         level4Stage.start();
     }
@@ -337,7 +366,7 @@ public class Main extends Application {
         level5Stage.start();
     }
     public void createLevel6(){
-        MyStage level6Stage = new MyStage("src/main/resources/Frogger Main Song Theme (loop).mp3");
+        MyStage level6Stage = new MyStage();
         level6Scene = new Scene(level6Stage, 590, 800);
         backgroundImage = new BackgroundImage("file:src/main/resources/FBackground1.jpg");
         level6Stage.add(backgroundImage);
@@ -436,14 +465,14 @@ public class Main extends Application {
         area.add(background);
 
         // Implementing log obstacles
-        area.add(new Log("file:src/p4_group_8_repo/log3.png", 120, 0, 166, 0.75));
-        area.add(new Log("file:src/p4_group_8_repo/log3.png", 120, 220, 166, 0.75));
-        area.add(new Log("file:src/p4_group_8_repo/log3.png", 120, 440, 166, 0.75));
-        area.add(new Log("file:src/p4_group_8_repo/log3.png", 120, 50, 329, 0.75));
-        area.add(new Log("file:src/p4_group_8_repo/log3.png", 120, 270, 329, 0.75));
-        area.add(new Log("file:src/p4_group_8_repo/log3.png", 120, 490, 329, 0.75));
-        area.add(new Log("file:src/p4_group_8_repo/logs.png", 300, 0, 276, -2));
-        area.add(new Log("file:src/p4_group_8_repo/logs.png", 300, 400, 276, -2));
+        area.add(new Log("file:src/p4_group_8_repo/log_small.png", 120, 0, 166, 0.75));
+        area.add(new Log("file:src/p4_group_8_repo/log_small.png", 120, 220, 166, 0.75));
+        area.add(new Log("file:src/p4_group_8_repo/log_small.png", 120, 440, 166, 0.75));
+        area.add(new Log("file:src/p4_group_8_repo/log_small.png", 120, 50, 329, 0.75));
+        area.add(new Log("file:src/p4_group_8_repo/log_small.png", 120, 270, 329, 0.75));
+        area.add(new Log("file:src/p4_group_8_repo/log_small.png", 120, 490, 329, 0.75));
+        area.add(new Log("file:src/p4_group_8_repo/log_long.png", 300, 0, 276, -2));
+        area.add(new Log("file:src/p4_group_8_repo/log_long.png", 300, 400, 276, -2));
 
 
         // Implementing Turtle Obstacles

@@ -4,8 +4,10 @@ import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 
 public abstract class Player  extends MovingActor{
-    protected final double movement = 13.3333333*2;
-    protected final double movementX = 10.666666*2;
+    protected final double movement = 25;
+    protected final double movementX = 20;
+//    protected final double movement = 13.3333333*2;
+//    protected final double movementX = 10.666666*2;
     protected boolean stop = false;
     private double startXPos;
     private double startYPos;
