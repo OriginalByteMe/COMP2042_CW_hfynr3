@@ -48,7 +48,7 @@ public class Main extends Application {
         primaryStage.show();
         start(menu);
     }
-
+//TODO: 'Find way at end of game to go back to level select screen'
     public void createTimer(MyStage stage) {
         timer = new AnimationTimer() {
             @Override
@@ -150,6 +150,7 @@ public class Main extends Application {
         menuScene = new Scene(contents);
 
     }
+    //FIXME:'Fix organisation of buttons'
     public void createLvlChooser(Stage primaryStage){
         AnchorPane contents = new AnchorPane();
         Label title= new Label("Frogger");
@@ -175,7 +176,7 @@ public class Main extends Application {
             primaryStage.setScene(level3Scene);
         });
 
-        Button level4Btn = getLvlBtn("Level 6",331,162);
+        Button level4Btn = getLvlBtn("Level 4",331,162);
         level4Btn.setOnAction(actionEvent ->  {
             createLevel4();
             primaryStage.setScene(level4Scene);
@@ -270,6 +271,7 @@ public class Main extends Application {
     }
     // Initializing items in levels
 
+//FIXME: 'Optimize the positions of all the obstacles'
     public void createLevel1(){
         MyStage level1Stage = new MyStage();
         level1Scene = new Scene(level1Stage, 590, 800);
@@ -277,19 +279,19 @@ public class Main extends Application {
         level1Stage.add(backgroundImage);
 
         LevelMaker level1 = new LevelMaker(level1Stage,score);
-        level1.addTruckSmall(3,0,1,1);
-        level1.addCar(4,500,2,2,'R');
-        level1.addTruckBig(2,0,3,1);
-        level1.addCar(4,100,4,2,'R');
-        level1.addTruckSmall(3,0,5,1);
+        level1.addTruckSmall(3,1,1,'L');
+        level1.addCar       (4,2,2,'R');
+        level1.addTruckBig  (2,3,1,'L');
+        level1.addCar       (4,4,2,'R');
+        level1.addTruckSmall(3,5,1,'L');
 
 
-        level1.addLogBig(3,0,1);
-        level1.addWetTurtle(3,200,2);
-        level1.addLogSmall(2,0,3);
-        level1.addLogBig(3,50,4);
-        level1.addDryTurtle(2,300,5);
-        level1.addWetTurtle(1,700,5);
+        level1.addLogBig   (2,1);
+        level1.addWetTurtle(3,2);
+        level1.addLogSmall (4,3);
+        level1.addLogBig   (3,4);
+        level1.addDryTurtle(2,5);
+        level1.addWetTurtle(1,5);
 
         addPlayer(level1Stage);
         addStatic(level1Stage);
@@ -303,16 +305,22 @@ public class Main extends Application {
         level2Stage.add(backgroundImage);
 
         LevelMaker level2 = new LevelMaker(level2Stage,score);
-        level2.addCar(4,0,5,2,'R');
-        level2.addCar(4,0,4,3,'L');
-        level2.addCar(3,50,3,2,'R');
-        level2.addCar(2,500,2,3,'L');
+        level2.addCar(3,5,2,'R');
+        level2.addCar(2,4,3,'L');
+        level2.addCar(3,3,2,'R');
+        level2.addCar(4,2,3,'L');
+        level2.addCar(4,1,2,'R');
 
-        level2.addWetTurtle(3,200,5);
-        level2.addLogSmall(2,0,4);
-        level2.addLogBig(1,0,3);
-        level2.addWetTurtle(4,0,2);
-        level2.addLogBig(3,100,1);
+
+
+
+        level2.addLogBig   (3,5);
+        level2.addWetTurtle(4,4);
+        level2.addLogBig   (1,3);
+        level2.addLogSmall (2,2);
+        level2.addWetTurtle(3,1);
+
+
         addPlayer(level2Stage);
         addStatic(level2Stage);
         level2Stage.start();
@@ -324,17 +332,21 @@ public class Main extends Application {
         level3Stage.add(backgroundImage);
 
         LevelMaker level3 = new LevelMaker(level3Stage,score);
-        level3.addCar(4,0,5,2,'R');
-        level3.addCar(4,0,4,2,'L');
-        level3.addCar(5,0,3,2,'R');
-        level3.addCar(2,500,2,1,'L');
-        level3.addCar(3,50,1,2,'R');
+        level3.addCar(3,5,2,'R');
+        level3.addCar(2,4,1,'L');
+        level3.addCar(5,3,2,'R');
+        level3.addCar(4,2,2,'L');
+        level3.addCar(4,1,2,'R');
 
-        level3.addWetTurtle(3,100,5);
-        level3.addLogSmall(3,0,4);
-        level3.addLogLong(1,0,3);
-        level3.addDryTurtle(4,300,2);
-        level3.addLogSmall(3,0,1);
+
+
+
+
+        level3.addWetTurtle(3,1);
+        level3.addLogSmall (3,2);
+        level3.addLogLong  (1,3);
+        level3.addDryTurtle(4,4);
+        level3.addLogSmall (3,5);
         addPlayer(level3Stage);
         addStatic(level3Stage);
         level3Stage.start();
@@ -346,9 +358,21 @@ public class Main extends Application {
         backgroundImage = new BackgroundImage("file:src/main/resources/FBackground1.jpg");
         level4Stage.add(backgroundImage);
         LevelMaker level4 = new LevelMaker(level4Stage,score);
-        level4.addCar(4,0,5,2,'R');
-        level4.addCar(4,0,4,2,'L');
-        level4.addCar(4,0,3,2,'R');
+        level4.addCar(3,5,1,'R');
+        level4.addCar(3,4,3,'L');
+        level4.addCar(4,3,2,'R');
+        level4.addCar(4,2,2,'L');
+        level4.addCar(4,1,2,'R');
+
+
+
+
+
+        level4.addWetTurtle(3,1);
+        level4.addLogSmall (2,2);
+        level4.addLogLong  (1,3);
+        level4.addWetTurtle(3,4);
+        level4.addLogBig   (2,5);
         addPlayer(level4Stage);
         addStatic(level4Stage);
 
@@ -359,10 +383,25 @@ public class Main extends Application {
         level5Scene = new Scene(level5Stage, 590, 800);
         backgroundImage = new BackgroundImage("file:src/main/resources/FBackground1.jpg");
         level5Stage.add(backgroundImage);
+        LevelMaker level5 = new LevelMaker(level5Stage,score);
+        level5.addCar(3,5,2,'L');
+        level5.addCar(4,4,1,'R');
+        level5.addCar(5,3,2,'L');
+        level5.addCar(4,2,2,'R');
+        level5.addCar(5,1,2,'L');
+
+
+
+
+
+        level5.addWetTurtle(2,1);
+        level5.addLogSmall (2,2);
+        level5.addLogLong  (1,3);
+        level5.addWetTurtle(3,4);
+        level5.addLogBig   (1,5);
+
         addPlayer(level5Stage);
         addStatic(level5Stage);
-        LevelMaker level5 = new LevelMaker(level5Stage,score);
-
         level5Stage.start();
     }
     public void createLevel6(){
@@ -370,10 +409,24 @@ public class Main extends Application {
         level6Scene = new Scene(level6Stage, 590, 800);
         backgroundImage = new BackgroundImage("file:src/main/resources/FBackground1.jpg");
         level6Stage.add(backgroundImage);
+
+        LevelMaker level6 = new LevelMaker(level6Stage,score);
+        level6.addCar(2,5,2,'L');
+        level6.addCar(1,4,1,'R');
+        level6.addCar(3,3,2,'L');
+        level6.addCar(3,2,2,'R');
+        level6.addCar(3,1,2,'L');
+
+
+        level6.addWetTurtle(4,1);
+        level6.addLogSmall (3,2);
+        level6.addLogLong  (3,3);
+        level6.addWetTurtle(4,4);
+        level6.addLogBig   (2,5);
+
+
         addPlayer(level6Stage);
         addStatic(level6Stage);
-        LevelMaker level6 = new LevelMaker(level6Stage,score);
-
         level6Stage.start();
     }
     public void createLevel7(){
@@ -381,10 +434,13 @@ public class Main extends Application {
         level7Scene = new Scene(level7Stage, 590, 800);
         backgroundImage = new BackgroundImage("file:src/main/resources/FBackground1.jpg");
         level7Stage.add(backgroundImage);
-        addPlayer(level7Stage);
-        addStatic(level7Stage);
+
         LevelMaker level7 = new LevelMaker(level7Stage,score);
 
+
+
+        addPlayer(level7Stage);
+        addStatic(level7Stage);
         level7Stage.start();
     }
     public void createLevel8(){
@@ -392,10 +448,24 @@ public class Main extends Application {
         level8Scene = new Scene(level8Stage, 590, 800);
         backgroundImage = new BackgroundImage("file:src/main/resources/FBackground1.jpg");
         level8Stage.add(backgroundImage);
+
+        LevelMaker level8 = new LevelMaker(level8Stage,score);
+        level8.addCar(4,1,2,'L');
+        level8.addCar(4,2,2,'R');
+        level8.addCar(5,3,2,'L');
+        level8.addCar(2,4,3,'R');
+        level8.addCar(3,5,2,'L');
+
+
+
+        level8.addDryTurtle(3,1);
+        level8.addLogSmall (3,2);
+        level8.addLogLong  (1,3);
+        level8.addWetTurtle(4,4);
+        level8.addLogBig   (1,5);
+
         addPlayer(level8Stage);
         addStatic(level8Stage);
-        LevelMaker level8 = new LevelMaker(level8Stage,score);
-
         level8Stage.start();
     }
     public void createLevel9(){
@@ -403,10 +473,25 @@ public class Main extends Application {
         level9Scene = new Scene(level9Stage, 590, 800);
         backgroundImage = new BackgroundImage("file:src/main/resources/FBackground1.jpg");
         level9Stage.add(backgroundImage);
+
+        LevelMaker level9 = new LevelMaker(level9Stage,score);
+        level9.addCar(4,1,2,'L');
+        level9.addCar(4,2,2,'R');
+        level9.addCar(4,3,2,'L');
+        level9.addCar(4,4,3,'R');
+        level9.addCar(4,5,2,'L');
+
+
+
+        level9.addWetTurtle(3,1);
+        level9.addLogSmall (2,2);
+        level9.addLogLong  (1,3);
+        level9.addLogSmall (2,4);
+        level9.addWetTurtle(2,5);
+
+
         addPlayer(level9Stage);
         addStatic(level9Stage);
-        LevelMaker level9 = new LevelMaker(level9Stage,score);
-
         level9Stage.start();
     }
     public void createLevel10(){
@@ -414,10 +499,25 @@ public class Main extends Application {
         level10Scene = new Scene(level10Stage, 590, 800);
         backgroundImage = new BackgroundImage("file:src/main/resources/FBackground1.jpg");
         level10Stage.add(backgroundImage);
+
+        LevelMaker level10 = new LevelMaker(level10Stage,score);
+        level10.addCar(5,1,2,'L');
+        level10.addCar(4,2,2,'R');
+        level10.addCar(5,3,2,'L');
+        level10.addCar(4,4,1,'R');
+        level10.addCar(4,5,2,'L');
+
+
+
+        level10.addWetTurtle (2,1);
+        level10.addLogSmall  (2,2);
+        level10.addLogLong   (1,3);
+        level10.addWetTurtle (4,4);
+        level10.addWetTurtle (2,5);
+
+
         addPlayer(level10Stage);
         addStatic(level10Stage);
-        LevelMaker level10 = new LevelMaker(level10Stage,score);
-
         level10Stage.start();
     }
 

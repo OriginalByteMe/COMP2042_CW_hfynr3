@@ -10,6 +10,7 @@ public class LevelMaker {
     private ActorGroupToWindow obstacleFactory = new ActorGroupToWindow("ObstacleFactory");
     private ActorGroupToWindow playerFactory = new ActorGroupToWindow("PlayerFactory");
     private ActorGroupToWindow staticActorFactory = new ActorGroupToWindow("StaticActorFactory");
+    private int sizeCar = 50,sizeTruckSmall = 120,sizeTruckBig = 200, sizeLogSmall = 140, sizeLogBig = 180, sizeLogLong = 170, sizeDryTurtle = 80, sizeWetTurtle = 80;
 
     public LevelMaker(MyStage game,List<Actor> score) {
         this.stage = game;
@@ -19,10 +20,11 @@ public class LevelMaker {
 
 
 
-    public void addCar(int amount, int startXPos, int lane, int speed,char direction){
+    public void addCar(int amount, int lane, int speed,char direction){
         obstacleFactory.setActorType("Car");
         obstacleFactory.setAmount(amount);
-        obstacleFactory.setStartXPos(startXPos); //Shift of 150
+        obstacleFactory.setStartXPos(amount * sizeCar);
+//        obstacleFactory.setStartXPos(startXPos); //Shift of 150
         switch(direction){
             case 'L':
                 obstacleFactory.setImageLink("file:src/main/resources/car1Left.png");
@@ -61,19 +63,19 @@ public class LevelMaker {
 
         }
         switch (lane){
-            case 1:
+            case 5:
                 obstacleFactory.setYPos(485);
                 break;
-            case 2:
+            case 4:
                 obstacleFactory.setYPos(525);
                 break;
             case 3:
                 obstacleFactory.setYPos(565);
                 break;
-            case 4:
+            case 2:
                 obstacleFactory.setYPos(620);
                 break;
-            case 5:
+            case 1:
                 obstacleFactory.setYPos(660);
                 break;
             default:
@@ -84,84 +86,156 @@ public class LevelMaker {
 
         carToWindow();
     }
-    public void addTruckSmall(int amount, int startXPos, int lane, double speed) {
+    public void addTruckSmall(int amount, int lane, double speed, char direction) {
         // Going to the right -->
         obstacleFactory.setActorType("Car");
         obstacleFactory.setAmount(amount);
-        obstacleFactory.setStartXPos(startXPos); // Shift of 300
+        obstacleFactory.setStartXPos(amount * sizeTruckSmall); // Shift of 300
+        switch(direction){
+            case 'L':
+                obstacleFactory.setImageLink("file:src/main/resources/truck1Left.png");
+                if(speed == 1){
+                    obstacleFactory.setSpeed(-0.75);
+                } else if(speed == 2) {
+                    obstacleFactory.setSpeed(-1);
+                }else if(speed == 3){
+                    obstacleFactory.setSpeed(-3);
+                }else{
+                    obstacleFactory.setSpeed(-1);
+                }
+                break;
+            case 'R':
+                obstacleFactory.setImageLink("file:src/main/resources/truck1Right.png");
+                if(speed == 1){
+                    obstacleFactory.setSpeed(0.75);
+                } else if(speed == 2) {
+                    obstacleFactory.setSpeed(1);
+                }else if (speed == 3){
+                    obstacleFactory.setSpeed(3);
+                }else{
+                    obstacleFactory.setSpeed(1.5);
+                }
+                break;
+            default:
+                obstacleFactory.setImageLink("file:src/main/resources/truck1Left.png");
+                if(speed == 1){
+                    obstacleFactory.setSpeed(-1);
+                } else if(speed == 2){
+                    obstacleFactory.setSpeed(-3);
+                }else{
+                    obstacleFactory.setSpeed(-1);
+                }
+                break;
+
+        }
         switch (lane){
-            case 1:
+            case 5:
                 obstacleFactory.setYPos(485);
                 break;
-            case 2:
+            case 4:
                 obstacleFactory.setYPos(525);
                 break;
             case 3:
                 obstacleFactory.setYPos(565);
                 break;
-            case 4:
+            case 2:
                 obstacleFactory.setYPos(620);
                 break;
-            case 5:
+            case 1:
                 obstacleFactory.setYPos(660);
                 break;
             default:
                 obstacleFactory.setYPos(485);
                 break;
         }
-        obstacleFactory.setSpeed(speed);
         truckSmallToWindow();
 
     }
-    public void addTruckBig(int amount, int startXPos, int lane, double speed) {
+    public void addTruckBig(int amount, int lane, double speed, char direction) {
         // Going to the right -->
 
         obstacleFactory.setActorType("Car");
         obstacleFactory.setAmount(amount);
-        obstacleFactory.setStartXPos(startXPos); // shift 500
+        obstacleFactory.setStartXPos(amount); // shift 500
+        switch(direction){
+            case 'L':
+                obstacleFactory.setImageLink("file:src/main/resources/truck2Left.png");
+                if(speed == 1){
+                    obstacleFactory.setSpeed(-0.75);
+                } else if(speed == 2) {
+                    obstacleFactory.setSpeed(-1);
+                }else if(speed == 3){
+                    obstacleFactory.setSpeed(-3);
+                }else{
+                    obstacleFactory.setSpeed(-1);
+                }
+                break;
+            case 'R':
+                obstacleFactory.setImageLink("file:src/main/resources/truck2Right.png");
+                if(speed == 1){
+                    obstacleFactory.setSpeed(0.75);
+                } else if(speed == 2) {
+                    obstacleFactory.setSpeed(1);
+                }else if (speed == 3){
+                    obstacleFactory.setSpeed(3);
+                }else{
+                    obstacleFactory.setSpeed(1.5);
+                }
+                break;
+            default:
+                obstacleFactory.setImageLink("file:src/main/resources/truck2Left.png");
+                if(speed == 1){
+                    obstacleFactory.setSpeed(-1);
+                } else if(speed == 2){
+                    obstacleFactory.setSpeed(-3);
+                }else{
+                    obstacleFactory.setSpeed(-1);
+                }
+                break;
+
+        }
         switch (lane){
-            case 1:
+            case 5:
                 obstacleFactory.setYPos(485);
                 break;
-            case 2:
+            case 4:
                 obstacleFactory.setYPos(525);
                 break;
             case 3:
                 obstacleFactory.setYPos(565);
                 break;
-            case 4:
+            case 2:
                 obstacleFactory.setYPos(620);
                 break;
-            case 5:
+            case 1:
                 obstacleFactory.setYPos(660);
                 break;
             default:
                 obstacleFactory.setYPos(485);
                 break;
         }
-        obstacleFactory.setSpeed(speed);
         truckBigToWindow();
 
     }
 
-    public void addLogSmall(int amount, int startXPos, int lane) {
+    public void addLogSmall(int amount, int lane) {
         obstacleFactory.setActorType("Log");
         obstacleFactory.setAmount(amount);
-        obstacleFactory.setStartXPos(startXPos); // Shift 200
+        obstacleFactory.setStartXPos(amount); // Shift 200
         switch (lane){
-            case 1:
+            case 5:
                 obstacleFactory.setYPos(166);
                 break;
-            case 2:
+            case 4:
                 obstacleFactory.setYPos(217);
                 break;
             case 3:
                 obstacleFactory.setYPos(276);
                 break;
-            case 4:
+            case 2:
                 obstacleFactory.setYPos(329);
                 break;
-            case 5:
+            case 1:
                 obstacleFactory.setYPos(370);
                 break;
             default:
@@ -172,25 +246,25 @@ public class LevelMaker {
         logSmallToWindow();
 
     }
-    public void addLogBig(int amount, int startXPos, int lane) {
+    public void addLogBig(int amount, int lane) {
         obstacleFactory.setActorType("Log");
         obstacleFactory.setAmount(amount);
-        obstacleFactory.setStartXPos(startXPos); // Shift 200
+        obstacleFactory.setStartXPos(amount); // Shift 200
         obstacleFactory.setSpeed(0.75);
         switch (lane){
-            case 1:
+            case 5:
                 obstacleFactory.setYPos(166);
                 break;
-            case 2:
+            case 4:
                 obstacleFactory.setYPos(217);
                 break;
             case 3:
                 obstacleFactory.setYPos(276);
                 break;
-            case 4:
+            case 2:
                 obstacleFactory.setYPos(329);
                 break;
-            case 5:
+            case 1:
                 obstacleFactory.setYPos(370);
                 break;
             default:
@@ -200,24 +274,24 @@ public class LevelMaker {
         logBigToWindow();
 
     }
-    public void addLogLong(int amount, int startXPos, int lane) {
+    public void addLogLong(int amount, int lane) {
         obstacleFactory.setActorType("Log");
         obstacleFactory.setAmount(amount);
-        obstacleFactory.setStartXPos(startXPos); // Shift 300
+        obstacleFactory.setStartXPos(amount); // Shift 300
         switch (lane){
-            case 1:
+            case 5:
                 obstacleFactory.setYPos(166);
                 break;
-            case 2:
+            case 4:
                 obstacleFactory.setYPos(217);
                 break;
             case 3:
                 obstacleFactory.setYPos(276);
                 break;
-            case 4:
+            case 2:
                 obstacleFactory.setYPos(329);
                 break;
-            case 5:
+            case 1:
                 obstacleFactory.setYPos(370);
                 break;
             default:
@@ -229,25 +303,25 @@ public class LevelMaker {
 
     }
 
-    public void addDryTurtle(int amount, int startXPos, int lane) {
+    public void addDryTurtle(int amount, int lane) {
         obstacleFactory.setActorType("Turtle");
         obstacleFactory.setAmount(amount);
-        obstacleFactory.setStartXPos(startXPos); // Shift of 200
+        obstacleFactory.setStartXPos(amount * sizeDryTurtle); // Shift of 200
         obstacleFactory.setSpeed(-1);
         switch (lane){
-            case 1:
+            case 5:
                 obstacleFactory.setYPos(166);
                 break;
-            case 2:
+            case 4:
                 obstacleFactory.setYPos(217);
                 break;
             case 3:
                 obstacleFactory.setYPos(276);
                 break;
-            case 4:
+            case 2:
                 obstacleFactory.setYPos(329);
                 break;
-            case 5:
+            case 1:
                 obstacleFactory.setYPos(370);
                 break;
             default:
@@ -256,25 +330,25 @@ public class LevelMaker {
         }
         turtleToWindow();
     }
-    public void addWetTurtle(int amount,int startXPos,int lane){
+    public void addWetTurtle(int amount,int lane){
         obstacleFactory.setActorType("WetTurtle");
         obstacleFactory.setAmount(amount);
-        obstacleFactory.setStartXPos(startXPos); // Shift of 200
+        obstacleFactory.setStartXPos(amount * sizeWetTurtle); // Shift of 200
         obstacleFactory.setSpeed(-1);
         switch (lane){
-            case 1:
+            case 5:
                 obstacleFactory.setYPos(166);
                 break;
-            case 2:
+            case 4:
                 obstacleFactory.setYPos(217);
                 break;
             case 3:
                 obstacleFactory.setYPos(276);
                 break;
-            case 4:
+            case 2:
                 obstacleFactory.setYPos(329);
                 break;
-            case 5:
+            case 1:
                 obstacleFactory.setYPos(370);
                 break;
             default:
@@ -288,57 +362,55 @@ public void addStatic() {
     endToWindow();
 }
 
-//TODO: 'Mathematically automate the XPos and shift of each obstacle'
+
 //FIXME: 'Get the correct sizes for each obstacle'
     public void carToWindow() {
-        obstacleFactory.setSize(50);
-        obstacleFactory.setShift(150);
+        obstacleFactory.setSize(sizeCar);
+        obstacleFactory.setShift(sizeCar * 3);
         obstacleFactory.AddToWindow(stage);
     }
     public void turtleToWindow() {
         obstacleFactory.setImageLink("file:src/main/resources/TurtleAnimation2.png");
-        obstacleFactory.setSize(80);
-        obstacleFactory.setShift(200);
+        obstacleFactory.setSize(sizeDryTurtle);
+        obstacleFactory.setShift(sizeDryTurtle * 3);
         obstacleFactory.AddToWindow(stage);
     }
     public void turtleWetToWindow() {
         obstacleFactory.setImageLink("file:src/main/resources/TurtleAnimation2.png");
-        obstacleFactory.setSize(80);
-        obstacleFactory.setShift(200);
+        obstacleFactory.setSize(sizeWetTurtle);
+        obstacleFactory.setShift(sizeWetTurtle * 3);
 
         obstacleFactory.AddToWindow(stage);
     }
     public void truckSmallToWindow() {
-        obstacleFactory.setImageLink("file:src/main/resources/truck1" + "Right.png");
-        obstacleFactory.setSize(120);
-        obstacleFactory.setShift(300);
+        obstacleFactory.setSize(sizeTruckSmall);
+        obstacleFactory.setShift(sizeLogSmall * 1.5);
         obstacleFactory.AddToWindow(stage);
     }
     public void truckBigToWindow() {
-        obstacleFactory.setImageLink("file:src/main/resources/truck2Right.png");
-        obstacleFactory.setSize(200);
-        obstacleFactory.setShift(500);
+        obstacleFactory.setSize(sizeTruckBig);
+        obstacleFactory.setShift(sizeTruckBig * 1.5);
 
         obstacleFactory.AddToWindow(stage);
     }
     public void logSmallToWindow() {
         obstacleFactory.setImageLink("file:src/main/resources/log_small.png");
-        obstacleFactory.setSize(130);
-        obstacleFactory.setShift(400);
+        obstacleFactory.setSize(sizeLogSmall);
+        obstacleFactory.setShift(sizeLogSmall * 1.5);
 
         obstacleFactory.AddToWindow(stage);
     }
     public void logBigToWindow() {
         obstacleFactory.setImageLink("file:src/main/resources/log_big.png");
-        obstacleFactory.setSize(180);
-        obstacleFactory.setShift(250);
+        obstacleFactory.setSize(sizeLogBig);
+        obstacleFactory.setShift(sizeLogBig * 1.5);
         obstacleFactory.AddToWindow(stage);
 
     }
     public void logLongToWindow(){
         obstacleFactory.setImageLink("file:src/main/resources/log_long.png");
-        obstacleFactory.setSize(170);
-        obstacleFactory.setShift(400);
+        obstacleFactory.setSize(sizeLogLong);
+        obstacleFactory.setShift(sizeLogLong * 1.5);
         obstacleFactory.AddToWindow(stage);
     }
 
