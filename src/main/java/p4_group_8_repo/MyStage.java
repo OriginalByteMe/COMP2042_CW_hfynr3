@@ -13,12 +13,15 @@ public class MyStage extends World{
 		this.musicPath = musicPath;
 	}
 
-	public MyStage() {
-		this.musicPath = "src/main/resources/Frogger Main Song Theme (loop).mp3";
+//	public MyStage() {
+//		this.musicPath = "src/main/resources/Frogger Main Song Theme (loop).mp3";
+//	}
+	public MyStage(){
+
 	}
 
 	public void playMusic() {
-		String musicFile = musicPath;
+		String musicFile = "src/main/resources/Frogger Main Song Theme (loop).mp3";
 //		String musicFile = "src/main/resources/Frogger Main Song Theme (loop).mp3";
 //		String musicFile = "src/p4_group_8_repo/Crazy-Frog-Axel-f.mp3";
 		Media sound = new Media(new File(musicFile).toURI().toString());
@@ -30,5 +33,6 @@ public class MyStage extends World{
 	public void stopMusic() {
 		mediaPlayer.stop();
 	}
+
 
 }

@@ -48,10 +48,10 @@ public class Animal extends Player {
 
 		final boolean noInteractions = actorIntersect.isEmpty();
 
-		if(ReachedWater && noInteractions){
-			waterDeath();
-			return;
-		}
+//		if(ReachedWater && noInteractions){
+//			waterDeath();
+//			return;
+//		}
 
 		for(Actor actor: actorIntersect){
 			handlePlayerInteractions(actor);
@@ -70,15 +70,15 @@ public class Animal extends Player {
 		// If player interacted with an end goal boolean will become true
 		final boolean endReached = actorName.equalsIgnoreCase("End");
 
-		if(carDeath){ 	// If car interaction
-			carDeath(); // Play animation
-			return; 	// Onto next interaction
-		}
-		else if(waterDeath){
-			waterDeath();
-			return;
-		}
-		else if(endReached){
+//		if(carDeath){ 	// If car interaction
+//			carDeath(); // Play animation
+//			return; 	// Onto next interaction
+//		}
+//		else if(waterDeath){
+//			waterDeath();
+//			return;
+//		}
+		if(endReached){
 			handleEnd((End) actor);
 			return;
 		}
@@ -117,7 +117,7 @@ public class Animal extends Player {
 		changeScore = true;
 	}
 	public boolean getStop() {
-		return numEndsReached ==2;
+		return numEndsReached ==1;
 	}
 
 	public int getScore() {
