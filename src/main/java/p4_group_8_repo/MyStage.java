@@ -24,6 +24,7 @@ public class MyStage extends World{
 		String musicFile = "src/main/resources/Frogger Main Song Theme (loop).mp3";
 //		String musicFile = "src/main/resources/Frogger Main Song Theme (loop).mp3";
 //		String musicFile = "src/p4_group_8_repo/Crazy-Frog-Axel-f.mp3";
+
 		Media sound = new Media(new File(musicFile).toURI().toString());
 		mediaPlayer = new MediaPlayer(sound);
 		mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
@@ -31,7 +32,36 @@ public class MyStage extends World{
 	}
 
 	public void stopMusic() {
-		mediaPlayer.stop();
+//		mediaPlayer.stop();
+		try {
+			mediaPlayer.stop();
+			if (mediaPlayer.getError() == null) {
+				mediaPlayer.setOnError(new Runnable() {
+					public void run() {
+						// Handle asynchronous error in Media object.
+					}
+				});
+				try {
+					mediaPlayer = new MediaPlayer(mediaPlayer.getMedia());
+					if (mediaPlayer.getError() == null) {
+						mediaPlayer.setOnError(new Runnable() {
+							public void run() {
+								// Handle asynchronous error in MediaPlayer object.
+							}
+						});
+					} else {
+						// Handle synchronous error creating MediaPlayer.
+					}
+				} catch (Exception mediaPlayerException) {
+					// Handle exception in MediaPlayer constructor.
+				}
+			} else {
+				// Handle synchronous error creating Media.
+			}
+		} catch (Exception mediaException) {
+			// Handle exception in Media constructor.
+		}
+
 	}
 
 

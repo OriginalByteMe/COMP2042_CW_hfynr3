@@ -1,10 +1,13 @@
 package p4_group_8_repo;
 
+
+
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -12,16 +15,23 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.Scanner;
+/**
+ * @author Noah Rijkaard 20123697
+ */
 
 
 // https://gamedevelopment.tutsplus.com/tutorials/introduction-to-javafx-for-game-development--cms-23835
 public class Main extends Application {
+
     private AnimationTimer timer;
     private MyStage menu;
     private List<Actor> players;
     private List<Actor> score;
-    private Scene menuScene, infoScene, levelChoiceScene, gameScene;
+    private Scene menuScene, infoScene, levelChoiceScene, gameScene, HSPageScene;
     private BackgroundImage backgroundImage;
     private HighscoreManager scoreKeeper;
     private MyStage game;
@@ -36,10 +46,10 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         game = new MyStage();
         addPlayer(game);
+        createHSPage();
         createInfo(primaryStage);
         createMenu(primaryStage);
         createLvlChooser(primaryStage);
-
 
 
         primaryStage.setTitle("Frogger Game!");
@@ -48,7 +58,7 @@ public class Main extends Application {
         start();
     }
 //TODO: 'Find way at end of game to go back to level select screen'
-//TODO: 'Add score of each level to a file'
+
     public void createTimer() {
         timer = new AnimationTimer() {
             @Override
@@ -76,10 +86,12 @@ public class Main extends Application {
         timer.start();
     }
 
+    //FIXME: 'Game ends music while moving, as well as not ending music after getting all ends'
     public void stop() {
         timer.stop();
-        game.stopMusic();
         game.stop();
+        game.stopMusic();
+
     }
 
     public void setNumber(int n) {
@@ -141,7 +153,7 @@ public class Main extends Application {
         title.setLayoutX(204.0);
         title.setLayoutY(30);
         title.setTextFill(Paint.valueOf("#0edd34"));
-        title.setFont(Font.font("Cambria Bold Italic",50.0));
+        title.setFont(Font.font("Cambria Bold Italic",53.0));
 
         Button level1Btn = getLvlBtn("Level 1", 98,162);
         level1Btn.setOnAction(actionEvent ->  {
@@ -206,7 +218,7 @@ public class Main extends Application {
             scoreKeeper = new HighscoreManager("Level 9:");
         });
 
-        Button level10Btn = getLvlBtn("level10",14,214);
+        Button level10Btn = getLvlBtn("level10",401,214);
         level10Btn.setOnAction(actionEvent ->  {
             createLevel10();
             primaryStage.setScene(gameScene);
@@ -266,17 +278,37 @@ public class Main extends Application {
         button.setFont(Font.font("Arial Rounded MT Bold", 12.0));
         return button;
     }
+
+    public void createHSPage(){
+        AnchorPane contents = new AnchorPane();
+        TextArea textArea = new TextArea();
+        try {
+            Scanner s = new Scanner(new File("src/main/java/p4_group_8_repo/scores.dat")).useDelimiter("\\s+");
+            while (s.hasNext()) {
+                if (s.hasNextInt()) { // check if next token is an int
+                    textArea.appendText(s.nextInt() + " "); // display the found integer
+                } else {
+                    textArea.appendText(s.next() + " "); // else read the next token
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            System.err.println(ex);
+        }
+
+        contents.getChildren().addAll(textArea);
+        HSPageScene = new Scene(contents,600,400);
+    }
     // Initializing items in levels
+
 
 //FIXME: 'Optimize the positions of all the obstacles'
     public void createLevel1(){
-//        level1Stage = new MyStage();
         game = new MyStage();
         gameScene = new Scene(game, 590, 800);
         backgroundImage = new BackgroundImage("file:src/main/resources/FBackground1.jpg");
         game.add(backgroundImage);
 
-        LevelMaker level1 = new LevelMaker(game,score);
+        LevelMaker level1 = new LevelMaker(game);
         level1.addTruckSmall(3,1,1,'L');
         level1.addCar       (4,2,2,'R');
         level1.addTruckBig  (2,3,1,'L');
@@ -302,7 +334,7 @@ public class Main extends Application {
         backgroundImage = new BackgroundImage("file:src/main/resources/FBackground1.jpg");
         game.add(backgroundImage);
 
-        LevelMaker level2 = new LevelMaker(game,score);
+        LevelMaker level2 = new LevelMaker(game);
         level2.addCar(3,5,2,'R');
         level2.addCar(2,4,3,'L');
         level2.addCar(3,3,2,'R');
@@ -322,7 +354,7 @@ public class Main extends Application {
         addPlayer(game);
         addStatic(game);
         game.start();
-//        level2Stage.start();
+
     }
 
     public void createLevel3(){
@@ -331,7 +363,7 @@ public class Main extends Application {
         backgroundImage = new BackgroundImage("file:src/main/resources/FBackground1.jpg");
         game.add(backgroundImage);
 
-        LevelMaker level3 = new LevelMaker(game,score);
+        LevelMaker level3 = new LevelMaker(game);
         level3.addCar(3,5,2,'R');
         level3.addCar(2,4,1,'L');
         level3.addCar(5,3,2,'R');
@@ -357,7 +389,7 @@ public class Main extends Application {
         gameScene = new Scene(game, 590, 800);
         backgroundImage = new BackgroundImage("file:src/main/resources/FBackground1.jpg");
         game.add(backgroundImage);
-        LevelMaker level4 = new LevelMaker(game,score);
+        LevelMaker level4 = new LevelMaker(game);
         level4.addCar(3,5,1,'R');
         level4.addCar(3,4,3,'L');
         level4.addCar(4,3,2,'R');
@@ -384,7 +416,7 @@ public class Main extends Application {
         gameScene = new Scene(game, 590, 800);
         backgroundImage = new BackgroundImage("file:src/main/resources/FBackground1.jpg");
         game.add(backgroundImage);
-        LevelMaker level5 = new LevelMaker(game,score);
+        LevelMaker level5 = new LevelMaker(game);
         level5.addCar(3,5,2,'L');
         level5.addCar(4,4,1,'R');
         level5.addCar(5,3,2,'L');
@@ -412,7 +444,7 @@ public class Main extends Application {
         backgroundImage = new BackgroundImage("file:src/main/resources/FBackground1.jpg");
         game.add(backgroundImage);
 
-        LevelMaker level6 = new LevelMaker(game,score);
+        LevelMaker level6 = new LevelMaker(game);
         level6.addCar(2,5,2,'L');
         level6.addCar(1,4,1,'R');
         level6.addCar(3,3,2,'L');
@@ -438,7 +470,7 @@ public class Main extends Application {
         backgroundImage = new BackgroundImage("file:src/main/resources/FBackground1.jpg");
         game.add(backgroundImage);
 
-        LevelMaker level7 = new LevelMaker(game,score);
+        LevelMaker level7 = new LevelMaker(game);
         level7.addCar(2,5,2,'L');
         level7.addCar(1,4,1,'R');
         level7.addCar(3,3,2,'L');
@@ -464,7 +496,7 @@ public class Main extends Application {
         backgroundImage = new BackgroundImage("file:src/main/resources/FBackground1.jpg");
         game.add(backgroundImage);
 
-        LevelMaker level8 = new LevelMaker(game,score);
+        LevelMaker level8 = new LevelMaker(game);
         level8.addCar(4,1,2,'L');
         level8.addCar(4,2,2,'R');
         level8.addCar(5,3,2,'L');
@@ -490,7 +522,7 @@ public class Main extends Application {
         backgroundImage = new BackgroundImage("file:src/main/resources/FBackground1.jpg");
         game.add(backgroundImage);
 
-        LevelMaker level9 = new LevelMaker(game,score);
+        LevelMaker level9 = new LevelMaker(game);
         level9.addCar(4,1,2,'L');
         level9.addCar(4,2,2,'R');
         level9.addCar(4,3,2,'L');
@@ -517,7 +549,7 @@ public class Main extends Application {
         backgroundImage = new BackgroundImage("file:src/main/resources/FBackground1.jpg");
         game.add(backgroundImage);
 
-        LevelMaker level10 = new LevelMaker(game,score);
+        LevelMaker level10 = new LevelMaker(game);
         level10.addCar(5,1,2,'L');
         level10.addCar(4,2,2,'R');
         level10.addCar(5,3,2,'L');

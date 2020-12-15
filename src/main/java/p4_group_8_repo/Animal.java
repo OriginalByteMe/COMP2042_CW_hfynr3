@@ -143,7 +143,7 @@ public class Animal extends Player {
 		images.addAll(Arrays.asList(cD1,cD2,cD3));
 
 		DeathAnimator(images);
-//		points -= 50;
+
 
 	}
 
@@ -158,7 +158,7 @@ public class Animal extends Player {
 		images.addAll(Arrays.asList(wD1,wD2,wD3,wD4));
 
 		DeathAnimator(images);
-//		points -= 50;
+
 	}
 
 	public void DeathAnimator(List<Image> images) {
