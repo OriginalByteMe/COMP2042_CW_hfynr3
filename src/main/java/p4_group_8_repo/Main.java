@@ -31,9 +31,9 @@ public class Main extends Application {
     private MyStage menu;
     private List<Actor> players;
     private List<Actor> score;
-    private Scene menuScene, infoScene, levelChoiceScene, gameScene, HSPageScene;
+    private Scene menuScene, infoScene, levelChoiceScene, gameScene, scoreboardScene;
     private BackgroundImage backgroundImage;
-    private HighscoreManager scoreKeeper;
+    private HighscoreManager scoreKeeper = new HighscoreManager("Game");
     private MyStage game;
 
 
@@ -46,7 +46,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         game = new MyStage();
         addPlayer(game);
-        createHSPage();
+        createHSPage(primaryStage);
         createInfo(primaryStage);
         createMenu(primaryStage);
         createLvlChooser(primaryStage);
@@ -135,6 +135,13 @@ public class Main extends Application {
         playBtn.setFont(font);
         playBtn.setOnAction(e -> primaryStage.setScene(levelChoiceScene));
 
+        Button scoreboardBtn = new Button("Score Board");
+        scoreboardBtn.setLayoutX(242);
+        scoreboardBtn.setLayoutY(350);
+        scoreboardBtn.prefHeight(25.0);
+        scoreboardBtn.prefWidth(57.0);
+        scoreboardBtn.setOnAction(e -> primaryStage.setScene(scoreboardScene));
+
         Button infoBtn = new Button("Info");
         infoBtn.setLayoutX(282);
         infoBtn.setLayoutY(322);
@@ -142,7 +149,7 @@ public class Main extends Application {
         infoBtn.prefWidth(57.0);
         infoBtn.setOnAction(e -> primaryStage.setScene(infoScene));
 
-        contents.getChildren().addAll(title, playBtn,infoBtn,coverIMG);
+        contents.getChildren().addAll(title, playBtn,infoBtn,scoreboardBtn,coverIMG);
         menuScene = new Scene(contents);
 
     }
@@ -267,6 +274,37 @@ public class Main extends Application {
         infoScene = new Scene(contents);
 
     }
+    public void createHSPage(Stage primaryStage){
+        AnchorPane contents = new AnchorPane();
+        String scoreboard = scoreKeeper.getScoreBoard();
+        contents.setPrefWidth(600);
+        contents.setPrefHeight(400);
+
+        Label title= new Label("Frogger");
+        title.setLayoutX(204.0);
+        title.setLayoutY(20);
+        title.setTextFill(Paint.valueOf("#0edd34"));
+        title.setFont(Font.font("Cambria Bold Italic",50.0));
+
+        Button backBtn = new Button("Back");
+        backBtn.setLayoutX(14);
+        backBtn.setLayoutY(361);
+        backBtn.prefHeight(25.0);
+        backBtn.prefWidth(57.0);
+        backBtn.setOnAction(e -> primaryStage.setScene(menuScene));
+
+        Label text = new Label();
+        text.setWrapText(true);
+        text.setLayoutX(22);
+        text.setLayoutY(88);
+        text.setText(scoreboard);
+        text.setFont(Font.font("Arial Black",12.0));
+
+
+        contents.getChildren().addAll(title, text,backBtn);
+        scoreboardScene = new Scene(contents);
+    }
+
     public Button getLvlBtn(String name,double x, double y){
         Button button = new Button(name);
         button.setLayoutX(x);
@@ -279,25 +317,6 @@ public class Main extends Application {
         return button;
     }
 
-    public void createHSPage(){
-        AnchorPane contents = new AnchorPane();
-        TextArea textArea = new TextArea();
-        try {
-            Scanner s = new Scanner(new File("src/main/java/p4_group_8_repo/scores.dat")).useDelimiter("\\s+");
-            while (s.hasNext()) {
-                if (s.hasNextInt()) { // check if next token is an int
-                    textArea.appendText(s.nextInt() + " "); // display the found integer
-                } else {
-                    textArea.appendText(s.next() + " "); // else read the next token
-                }
-            }
-        } catch (FileNotFoundException ex) {
-            System.err.println(ex);
-        }
-
-        contents.getChildren().addAll(textArea);
-        HSPageScene = new Scene(contents,600,400);
-    }
     // Initializing items in levels
 
 

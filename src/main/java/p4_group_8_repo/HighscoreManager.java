@@ -9,27 +9,29 @@ import java.util.Collections;
 //TODO:'Find way to put all highscore into a scene view'
 //TODO:'Order scores according to level'
 public class HighscoreManager {
-    // An arraylist of the type "score" we will use to work with the scores inside the class
+
     /**
-     * ArrayList created to store score datatype
-     * @param scores
+     * ArrayList created to store score objects containing both name of level and score
      */
 
     private ArrayList<Score> scores;
+    private String stageName;
 
-    // The name of the file where the highscores will be saved
     /**
-     * Location of score file
-     * @param HIGHSCORE_FILE
-     *
+     * Location of score file saved as a binary format so it cannot be manually edited
+     * <p><b>Location:</b> {@value HIGHSCORE_FILE}</p>
      */
-    private static final String HIGHSCORE_FILE = "src/main/java/p4_group_8_repo/scores.txt";
+    private static final String HIGHSCORE_FILE = "src/main/java/p4_group_8_repo/scores.dat";
 
     //Initialising an in and outputStream for working with the file
     ObjectOutputStream outputStream = null;
     ObjectInputStream inputStream = null;
 
-    private String stageName;
+
+    /**
+     * Highscore constructor
+     * @param stageName
+     */
     public HighscoreManager(String stageName) {
         //initialising the scores-arraylist
         scores = new ArrayList<Score>();
@@ -37,6 +39,11 @@ public class HighscoreManager {
         this.stageName = stageName;
     }
 
+    /**
+     *  <h1>getScores</h1>
+     *  Used to retrieve and sort all of the scores from file
+     * @return ArrayList of Score objects
+     */
     public ArrayList<Score> getScores() {
         loadScoreFile();
         sort();
@@ -47,6 +54,12 @@ public class HighscoreManager {
         Collections.sort(scores, comparator);
     }
 
+    /**
+     * <h1>addScore</h1>
+     * <p>Creates Score object to add to Array.</p>
+     * <p>Then adds Score to file using <b>updateScoreFile();</b></p>
+     * @param score
+     */
     public void addScore( int score) {
         loadScoreFile();
         scores.add(new Score(stageName, score));
@@ -54,6 +67,14 @@ public class HighscoreManager {
     }
 
 
+    /**
+     * <h1>loadScoreFile</h1>
+     * <h2>Reading from file</h2>
+     * <p>Uses ObjectInputStream to read Score objects from file.</p>
+     * <p>File itself is not legible can only really be read with inputStream.</p>
+     * @return Nothing.
+     * @see ObjectInputStream
+     */
     public void loadScoreFile() {
         try {
             inputStream = new ObjectInputStream(new FileInputStream(HIGHSCORE_FILE));
@@ -77,19 +98,13 @@ public class HighscoreManager {
     }
 
     /**
-     * Adding score to file
+     * <h1>updateScoreFile</h1>
+     * <h2>adding Score to file</h2>
+     * <p>Using ObjectOutputStream to be able to write the object to file</p>
+     *
+     * @see ObjectOutputStream
      */
     public void updateScoreFile() {
-//        try {
-//            FileWriter myWriter = new FileWriter(HIGHSCORE_FILE);
-//            myWriter.write(String.valueOf(scores));
-//            myWriter.close();
-//            System.out.println("Successfully wrote to the file.");
-//        } catch (IOException e) {
-//            System.out.println("An error occurred.");
-//            e.printStackTrace();
-//        }
-
 
 
         try {
@@ -114,9 +129,40 @@ public class HighscoreManager {
 
     }
 
-
+    /**
+     * <h1>getHighscoreString</h1>
+     * <h2>Finding the highest score</h2>
+     * <p>Retrieves all the scores from file and stores into new ArrayList</p>
+     * <p>Goes through Arraylist running basic search to find the largest element then returns that element</p>
+     * @return <b>highscoreString</b>
+     */
     public String getHighscoreString() {
         String highscoreString = "";
+        ArrayList<Score> scores;
+        scores = getScores();
+        int biggestScore = 0;
+        int i = 0;
+        int x = scores.size();
+
+
+        for(i = 0; i<x;i++){
+            int score = scores.get(i).getScore();
+            if(score > biggestScore){
+                biggestScore = score;
+            }
+        }
+
+        for(int j = 0; j<x; j++){
+            if(scores.get(j).getScore() == biggestScore){
+                highscoreString += (j + 1) + ".\t" + scores.get(j).getName() + "\t\t" + scores.get(j).getScore() + "\n";
+            }
+        }
+
+        return highscoreString;
+    }
+
+    public String getScoreBoard(){
+        String scoreBoardString = "";
         int max = 10;
 
         ArrayList<Score> scores;
@@ -128,10 +174,10 @@ public class HighscoreManager {
             x = max;
         }
         while (i < x) {
-            highscoreString += (i + 1) + ".\t" + scores.get(i).getName() + "\t\t" + scores.get(i).getScore() + "\n";
+            scoreBoardString += (i + 1) + ".\t" + scores.get(i).getName() + "\t\t" + scores.get(i).getScore() + "\n";
             i++;
         }
-        return highscoreString;
+        return scoreBoardString;
     }
 
     public void printScore() {
