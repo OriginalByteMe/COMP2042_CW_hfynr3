@@ -6,12 +6,23 @@ public class LevelMaker {
     private ActorGroupToWindow staticActorFactory = new ActorGroupToWindow("StaticActorFactory");
     private final int sizeCar = 50,sizeTruckSmall = 120,sizeTruckBig = 200, sizeLogSmall = 140, sizeLogBig = 180, sizeLogLong = 190, sizeDryTurtle = 80, sizeWetTurtle = 80;
 
+    /**
+     * Allows for a levelmaker object to be created to easily add obstacles to scene's
+     * @param game The game stage which actors will be added to
+     */
     public LevelMaker(MyStage game) {
         this.stage = game;
         addStatic();
     }
 
-
+    /**
+     * <h1>Adding vehicles to level</h1>
+     * <h2>Adding car</h2>
+     * @param amount Amount of vehicles to be added
+     * @param lane Which lane on the road the vehicle will be added to
+     * @param speed Speed at which obstacle will move
+     * @param direction Direction of obstacle
+     */
     public void addCar(int amount, int lane, int speed,char direction){
         obstacleFactory.setActorType("Car");
         obstacleFactory.setAmount(amount);
@@ -22,7 +33,6 @@ public class LevelMaker {
         carToWindow();
     }
     public void addTruckSmall(int amount, int lane, double speed, char direction) {
-        // Going to the right -->
         obstacleFactory.setActorType("Car");
         obstacleFactory.setAmount(amount);
         obstacleFactory.setStartXPos(amount * sizeTruckSmall); // Shift of 300
@@ -31,8 +41,6 @@ public class LevelMaker {
         truckSmallToWindow();
     }
     public void addTruckBig(int amount, int lane, double speed, char direction) {
-        // Going to the right -->
-
         obstacleFactory.setActorType("Car");
         obstacleFactory.setAmount(amount);
         obstacleFactory.setStartXPos(amount); // shift 500
@@ -41,6 +49,11 @@ public class LevelMaker {
         truckBigToWindow();
     }
 
+    /**
+     *<h1>Adding water obstacles</h1>
+     * @param amount Amount of vehicles to be added
+     * @param lane Which lane on the road the vehicle will be added to
+     */
     public void addLogSmall(int amount, int lane) {
         obstacleFactory.setActorType("Log");
         obstacleFactory.setAmount(amount);
@@ -84,6 +97,11 @@ public class LevelMaker {
         turtleWetToWindow();
     }
 
+    /**
+     * <h1>Water Lane assignment</h1>
+     * <p>Has set Y-Positions for each lane in the water</p>
+     * @param lane Lane for water object to be put in
+     */
     public void waterLaneAssign(int lane){
         switch (lane){
             case 5:
@@ -106,6 +124,7 @@ public class LevelMaker {
                 break;
         }
     }
+
     public void carLaneAssign(int lane){
         switch (lane){
             case 5:
@@ -128,6 +147,15 @@ public class LevelMaker {
                 break;
         }
     }
+
+    /**
+     * <h1>Direction and Speed assignment</h1>
+     * <p>Allows for direction choice along with which speed it will go at, from 3 different presets</p>
+     * @param left Left image
+     * @param right Right image
+     * @param direction Direction of movement
+     * @param speed Speed of movement
+     */
     public void directionAssign(String left,String right, char direction, double speed ) {
         switch (direction) {
             case 'L':
@@ -173,6 +201,13 @@ public void addStatic() {
 
 
 //FIXME: 'Get the correct sizes for each obstacle'
+
+    /**
+     * <h1>Adding obstacle to window</h1>
+     * <p>Sets imagelink for each water obstacle here as there is no direction image for them</p>
+     * <p>Also sets the shift between obstacles in the same lane.</p>
+     * <p>Also sets size of each obstacle</p>
+     */
     public void carToWindow() {
         obstacleFactory.setSize(sizeCar);
         obstacleFactory.setShift(sizeCar * 3);
@@ -224,11 +259,6 @@ public void addStatic() {
     }
 
     public void endToWindow() {
-//        staticActorFactory.setImageLink("file:src/Resources/End.png");
-//        staticActorFactory.setSize(60);
-//        staticActorFactory.setShift(128.2);
-//
-//        staticActorFactory.AddToWindow(game);
         staticActorFactory.setActorType("End");
         staticActorFactory.setAmount(5);
         staticActorFactory.setStartXPos(13); // Shift of 140

@@ -38,9 +38,11 @@ public class Animal extends Player {
 	}
 
 
-	/* Handling player interactions */
-	// This will handle death animations, score upkeep when reaching an End and the interaction
-	// between player and logs + turtles
+
+	/**
+	 * <h1>Handling Player Interactions</h1>
+	 * <p>Handles water death + Log riding interaction</p>
+	 */
 	public void handlePlayerInteractions(){
 		List<Actor> actorIntersect = getIntersectingObjects(Actor.class);
 
@@ -48,10 +50,10 @@ public class Animal extends Player {
 
 		final boolean noInteractions = actorIntersect.isEmpty();
 
-//		if(ReachedWater && noInteractions){
-//			waterDeath();
-//			return;
-//		}
+		if(ReachedWater && noInteractions){
+			waterDeath();
+			return;
+		}
 
 		for(Actor actor: actorIntersect){
 			handlePlayerInteractions(actor);
@@ -60,6 +62,11 @@ public class Animal extends Player {
 
 	}
 
+	/**
+	 * <h1>Handling Player Interactions 2</h1>
+	 * <p>Handles death by other Actors, also handles end interactions (Getting Points from end pockets)</p>
+	 * @param actor In this case any obstacle or static end
+	 */
 	public void handlePlayerInteractions(Actor actor){
 		final String actorName = actor.getActorClassName();
 
@@ -70,14 +77,14 @@ public class Animal extends Player {
 		// If player interacted with an end goal boolean will become true
 		final boolean endReached = actorName.equalsIgnoreCase("End");
 
-//		if(carDeath){ 	// If car interaction
-//			carDeath(); // Play animation
-//			return; 	// Onto next interaction
-//		}
-//		else if(waterDeath){
-//			waterDeath();
-//			return;
-//		}
+		if(carDeath){ 	// If car interaction
+			carDeath(); // Play animation
+			return; 	// Onto next interaction
+		}
+		else if(waterDeath){
+			waterDeath();
+			return;
+		}
 		if(endReached){
 			handleEnd((End) actor);
 			return;
@@ -88,6 +95,12 @@ public class Animal extends Player {
 		}
 	}
 
+	/**
+	 * <h1>Handling End</h1>
+	 * <p>Activates and Deactivates end depending on current state.</p>
+	 * <p>Adds/Subtracts points for reaching either reaching new end or old one</p>
+	 * @param end one of many End goals situated at the end of the stage
+	 */
 	public void handleEnd(End end){
 		if(end.isActivated()){
 			end.deactivate();
@@ -103,21 +116,43 @@ public class Animal extends Player {
 		restoreDefaults();
 	}
 
+	/**
+	 * <h1>Player Mount</h1>
+	 * <p>Makes player move at the same speed as obstacle it is currently one</p>
+	 * <p>Will only work with Dry Turtles and Logs, all others trigger death animation</p>
+	 * @param obstacle obstacle Object
+	 */
 	public void playerMount(obstacle obstacle){
 		move(obstacle.getSpeed(),0);
 	}
 
+	/**
+	 * <h1>Subtracting Points</h1>
+	 * <p>Removes points from total score</p>
+	 * @param points points accrued for doing an action
+	 */
 	public void subtractPoints(int points){
 		score = (points <= points ? 0 : (points - points));
 		changeScore = true;
 	}
 
+	/**
+	 * <h1>Adding points</h1>
+	 * <p>Adds points to total score</p>
+	 * @param points points accrued for doing an action
+	 */
 	public void addPoints(int points) {
 		score += points;
 		changeScore = true;
 	}
+
+	/**
+	 * <h1>Stopping Game</h1>
+	 * <p>Sets endgame condition, how many ends need to be reached to send stop condition</p>
+	 * @return Number of ends needed for end condition
+	 */
 	public boolean getStop() {
-		return numEndsReached ==1;
+		return numEndsReached ==5;
 	}
 
 	public int getScore() {
@@ -132,7 +167,9 @@ public class Animal extends Player {
 		return false;
 	}
 
-	/* Death Animations*/
+	/**
+	 * <h1>Death Animations</h1>
+	 */
 	public void waterDeath(){
 		stop = true;
 		List<Image> images = new ArrayList<>();
@@ -161,6 +198,13 @@ public class Animal extends Player {
 
 	}
 
+	/**
+	 * <h1>Death Animator</h1>
+	 * <p>Sets transition timings for death animation and then resets to defaults.</p>
+	 * <p>It also handles the subtraction of points for all deaths</p>
+	 * @param images list of images for animation
+	 * @see SequentialTransition
+	 */
 	public void DeathAnimator(List<Image> images) {
 		final int milliseconds = 100;
 
@@ -181,7 +225,14 @@ public class Animal extends Player {
 
 	/* Movement */
 
-
+	/**
+	 * <h1>Handle Key Press</h1>
+	 * <p>Handles the key press for WASD to move characters.</p>
+	 * <p>Calls different movement animations depending on key pressed</p>
+	 * @return EventHandler
+	 * @see EventHandler
+	 * @see KeyEvent
+	 */
 	public EventHandler<KeyEvent> getKeyPressedHandler(){
 		EventHandler<KeyEvent> keyEventEventHandler = new EventHandler<KeyEvent>() {
 			@Override
@@ -208,6 +259,14 @@ public class Animal extends Player {
 		return keyEventEventHandler;
 	}
 
+
+	/**
+	 * <h1>Movement</h1>
+	 * <h2>Move Up</h2>
+	 * <p>Uses both the default and up images to create the moving up animation</p>
+	 * <p>Passes images to <b>Movement Animator</b></p>
+	 * @param milliseconds Duration of animation
+	 */
 	public void moveUp(int milliseconds){
 		final boolean endReached = getY() < end_pocket;
 		List <Image> images = new ArrayList<>();
@@ -265,6 +324,16 @@ public class Animal extends Player {
 
 	}
 
+	/**
+	 * <h1>Movement Animator</h1>
+	 * <p>Similar to death animation it uses a list of images to create an animation via transitions.</p>
+	 *
+	 * @param images List of images for animation
+	 * @param milliseconds Duration of animation
+	 * @param moveX Changing players X position
+	 * @param moveY Changing players Y position
+	 * @see Transition
+	 */
 	public void MovementAnimator(List<Image> images, int milliseconds, double moveX, double moveY) {
 
 		Transition MovementAnimation = animate(images, milliseconds);
@@ -287,188 +356,4 @@ public class Animal extends Player {
 	}
 }
 
-//	boolean noMove = false;
-//	boolean carDeath = false;
-//	boolean waterDeath = false;
-//	int imgSize = 40;
-//	int carD = 0;
 
-//	private boolean second = false;
-
-//	boolean stop = false;
-
-
-//	ArrayList<End> inter = new ArrayList<End>();
-
-
-/*
-	public Animal(String imageLink) {
-		setImage(new Image(imageLink, imgSize, imgSize, true, true));
-		// Starting Pos
-		setX(300);
-		setY(679.8+movement);
-		//
-
-		/* Adding score
-		setOnKeyPressed(new EventHandler<KeyEvent>() {
-			public void handle(KeyEvent event) {
-				setOnKeyReleased(new EventHandler<KeyEvent>() {
-					public void handle(KeyEvent event) {
-						if (noMove) {
-						} else {
-							if (event.getCode() == KeyCode.W) {
-								if (getY() < end_pocket) {
-									changeScore = true;
-									end_pocket = getY();
-									points += 10;
-								}
-								move(0, -movement);
-								setImage(FrogUp);
-								second = false;
-							} else if (event.getCode() == KeyCode.A) {
-								move(-movementX, 0);
-								setImage(FrogL);
-								second = false;
-							} else if (event.getCode() == KeyCode.S) {
-								move(0, movement);
-								setImage(FrogD);
-								second = false;
-							} else if (event.getCode() == KeyCode.D) {
-								move(movementX, 0);
-								setImage(FrogR);
-								second = false;
-							}
-						}
-					}
-
-				});
-			}
-		});
-		*/
-
-/* Deaths */
-
-//	public void act(long now) {
-/* Out of bounds */
-//		}
-		/*
-		int bounds = 0;
-		if (getY()<0 || getY()>734) {
-			setX(300);
-			setY(679.8+movement);
-		}
-		if (getX()<0) {
-			move(movement*2, 0);
-		}
-		/* ----------------------------- */
-		/*
-		if (carDeath) {
-			noMove = true;
-			if ((now)% 11 ==0) {
-				carD++;
-			}
-			if (carD==1) {
-				setImage(new Image("file:src/p4_group_8_repo/cardeath1.png", imgSize, imgSize, true, true));
-			}
-			if (carD==2) {
-				setImage(new Image("file:src/p4_group_8_repo/cardeath2.png", imgSize, imgSize, true, true));
-			}
-			if (carD==3) {
-				setImage(new Image("file:src/p4_group_8_repo/cardeath3.png", imgSize, imgSize, true, true));
-			}
-			if (carD == 4) {
-				setX(300);
-				setY(679.8+movement);
-				carDeath = false;
-				carD = 0;
-				setImage(new Image("file:src/p4_group_8_repo/froggerUp.png", imgSize, imgSize, true, true));
-				noMove = false;
-				if (points>50) {
-					points-=50;
-					changeScore = true;
-				}
-			}
-
-		}
-		if (waterDeath) {
-			noMove = true;
-			if ((now)% 11 ==0) {
-				carD++;
-			}
-			if (carD==1) {
-				setImage(new Image("file:src/p4_group_8_repo/waterdeath1.png", imgSize,imgSize , true, true));
-			}
-			if (carD==2) {
-				setImage(new Image("file:src/p4_group_8_repo/waterdeath2.png", imgSize,imgSize , true, true));
-			}
-			if (carD==3) {
-				setImage(new Image("file:src/p4_group_8_repo/waterdeath3.png", imgSize,imgSize , true, true));
-			}
-			if (carD == 4) {
-				setImage(new Image("file:src/p4_group_8_repo/waterdeath4.png", imgSize,imgSize , true, true));
-			}
-			if (carD == 5) {
-				setX(300);
-				setY(679.8+movement);
-				waterDeath = false;
-				carD = 0;
-				setImage(new Image("file:src/p4_group_8_repo/froggerUp.png", imgSize, imgSize, true, true));
-				noMove = false;
-				if (points>50) {
-					points-=50;
-					changeScore = true;
-				}
-			}
-
-		}
-
-		/* Out of bounds
-		if (getX()>600) {
-			move(-movement*2, 0);
-		}
-		/* -----------------------------*/
-		/* Intersecting with other objects (riding)
-		if (getIntersectingObjects(Obstacle.class).size() >= 1) {
-			carDeath = true;
-		}
-		if (getX() == 240 && getY() == 82) {
-			stop = true;
-		}
-		if (getIntersectingObjects(Log.class).size() >= 1 && !noMove) {
-			if(getIntersectingObjects(Log.class).get(0).getLeft())
-				move(-2,0);
-			else
-				move (.75,0);
-		}
-		else if (getIntersectingObjects(Turtle.class).size() >= 1 && !noMove) {
-			move(-1,0);
-		}
-		else if (getIntersectingObjects(WetTurtle.class).size() >= 1) {
-			if (getIntersectingObjects(WetTurtle.class).get(0).isSunk()) {
-				waterDeath = true;
-			} else {
-				move(-1,0);
-			}
-		}
-		else if (getIntersectingObjects(End.class).size() >= 1) {
-			inter = (ArrayList<End>) getIntersectingObjects(End.class);
-			if (getIntersectingObjects(End.class).get(0).isActivated()) {
-				end--;
-				points-=50;
-			}
-			points+=50;
-			changeScore = true;
-			end_pocket =800;
-			getIntersectingObjects(End.class).get(0).setEnd();
-			end++;
-			setX(300);
-			setY(679.8+movement);
-		}
-		else if (getY()<413){
-			waterDeath = true;
-			//setX(300);
-			//setY(679.8+movement);
-		}
-	}
-
-		 */

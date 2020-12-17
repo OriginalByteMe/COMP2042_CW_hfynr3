@@ -30,7 +30,7 @@ public class HighscoreManager {
 
     /**
      * Highscore constructor
-     * @param stageName
+     * @param stageName Name of current stage
      */
     public HighscoreManager(String stageName) {
         //initialising the scores-arraylist
@@ -40,7 +40,7 @@ public class HighscoreManager {
     }
 
     /**
-     *  <h1>getScores</h1>
+     *  <h1>Get Scores</h1>
      *  Used to retrieve and sort all of the scores from file
      * @return ArrayList of Score objects
      */
@@ -55,10 +55,10 @@ public class HighscoreManager {
     }
 
     /**
-     * <h1>addScore</h1>
+     * <h1>Adding Score</h1>
      * <p>Creates Score object to add to Array.</p>
      * <p>Then adds Score to file using <b>updateScoreFile();</b></p>
-     * @param score
+     * @param score Object containing points and name of stage
      */
     public void addScore( int score) {
         loadScoreFile();
@@ -68,11 +68,10 @@ public class HighscoreManager {
 
 
     /**
-     * <h1>loadScoreFile</h1>
+     * <h1>Loading Score File</h1>
      * <h2>Reading from file</h2>
      * <p>Uses ObjectInputStream to read Score objects from file.</p>
      * <p>File itself is not legible can only really be read with inputStream.</p>
-     * @return Nothing.
      * @see ObjectInputStream
      */
     public void loadScoreFile() {
@@ -98,8 +97,7 @@ public class HighscoreManager {
     }
 
     /**
-     * <h1>updateScoreFile</h1>
-     * <h2>adding Score to file</h2>
+     * <h1>Adding to file</h1>
      * <p>Using ObjectOutputStream to be able to write the object to file</p>
      *
      * @see ObjectOutputStream
@@ -130,7 +128,7 @@ public class HighscoreManager {
     }
 
     /**
-     * <h1>getHighscoreString</h1>
+     * <h1>Get Highscore</h1>
      * <h2>Finding the highest score</h2>
      * <p>Retrieves all the scores from file and stores into new ArrayList</p>
      * <p>Goes through Arraylist running basic search to find the largest element then returns that element</p>

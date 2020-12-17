@@ -51,7 +51,12 @@ public class ActorGroupToWindow {
         ActorGroup = actorGroup;
     }
 
-
+    /**
+     * <h1>AddToWindow</h1>
+     * <p>Adds Actors to the Stage and assigns them their <u>factory type</u></p>
+     * @param area Current stage to add Actor to
+     * @return List of actors added
+     */
     public List<Actor> AddToWindow(MyStage area){
         List<Actor> added = new ArrayList<>();
 

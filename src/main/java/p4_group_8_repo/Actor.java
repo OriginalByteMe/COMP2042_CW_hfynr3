@@ -14,6 +14,15 @@ public abstract class Actor extends ImageView{
     protected double size;
     protected Image ActorImage;
 
+    /**
+     * <h1>Constructor</h1>
+     * <p>Assigns a default image to each actor along with its </p>
+     * <p>size, X-Position and Y-Position</p>
+     * @param ImageLink Default image
+     * @param size Size of image
+     * @param xPos Starting X-Position
+     * @param yPos Starting Y-Position
+     */
     public Actor(String ImageLink, double size, double xPos, double yPos) {
         ActorImage = new Image(ImageLink, size, size, true, true);
         this.size = size;
@@ -64,6 +73,15 @@ public abstract class Actor extends ImageView{
     // https://netopyr.com/2012/03/09/creating-a-sprite-animation-with-javafx/
     // https://stackoverflow.com/questions/47876381/javafx-and-sprite-animation-how-do-i-make-an-animation-cycle-to-change-pictures
     //
+
+    /**
+     * <h1>Animation Machine</h1>
+     * <p>Handles animations for all actors by using a transition between images.</p>
+     * <p>With a buffer of <u>int milliseconds</u> between each change in image</p>
+     * @param images List of images for animation
+     * @param milliseconds Duration of animation
+     * @return <b>Transition</b>
+     */
     public Transition animate(List<Image> images, int milliseconds) {
         Transition animation = new Transition() {
             {

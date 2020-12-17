@@ -5,6 +5,7 @@ public abstract class MovingActor extends Actor{
         super(imageLink,size,xPos,yPos);
     }
 
+
     public void move(double dx, double dy) {
         setX(getX() + dx);
         setY(getY() + dy);

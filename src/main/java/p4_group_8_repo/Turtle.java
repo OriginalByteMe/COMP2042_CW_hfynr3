@@ -17,7 +17,10 @@ public class Turtle extends obstacle {
 		animationCompile();
 	}
 
-	public void animationCompile(){
+	/**
+	 * <p>Compiles all images for turtle animation</p>
+	 */
+	public void animationCompile() {
 		List<Image> turtleFrames = new ArrayList<>();
 
 		Image firstFrame = new Image("file:src/main/resources/TurtleAnimation2.png", size, size, true, true);
@@ -29,7 +32,13 @@ public class Turtle extends obstacle {
 		turtleAnimator(turtleFrames);
 	}
 
-	public void turtleAnimator(List<Image> images){
+	/**
+	 * <h1>Turtle Animator</h1>
+	 *
+	 * @param images List of images to be used for animation
+	 * @see Transition
+	 */
+	public void turtleAnimator(List<Image> images) {
 		final int milliseconds = 1000;
 
 		Transition turtleAnimation = animate(images, milliseconds);
@@ -48,41 +57,5 @@ public class Turtle extends obstacle {
 	public String getActorClassName() {
 		return "Turtle";
 	}
-
-	// Also replace with a more general constructor
-//	public Turtle(int xpos, int ypos, int s, int w, int h) {
-//		turtle1 = new Image("file:src/p4_group_8_repo/TurtleAnimation1.png", w, h, true, true);
-//		turtle2 = new Image("file:src/p4_group_8_repo/TurtleAnimation2.png", w, h, true, true);
-//		turtle3 = new Image("file:src/p4_group_8_repo/TurtleAnimation3.png", w, h, true, true);
-//		setX(xpos);
-//		setY(ypos);
-//		speed = s;
-//		setImage(turtle2);
-//	}
-
-
-// Replace with animation machine
-//	@Override
-//	public void act(long now) {
-//
-//				if (now/900000000  % 3 ==0) {
-//					setImage(turtle2);
-//
-//				}
-//				else if (now/900000000 % 3 == 1) {
-//					setImage(turtle1);
-//
-//				}
-//				else if (now/900000000 %3 == 2) {
-//					setImage(turtle3);
-//
-//				}
-//
-//		move(speed , 0);
-//		if (getX() > 600 && speed>0)
-//			setX(-200);
-//		if (getX() < -75 && speed<0)
-//			setX(600);
-//	}
 
 }

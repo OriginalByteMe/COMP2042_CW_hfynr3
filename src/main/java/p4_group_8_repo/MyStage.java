@@ -13,19 +13,20 @@ public class MyStage extends World{
 		this.musicPath = musicPath;
 	}
 
-//	public MyStage() {
-//		this.musicPath = "src/main/resources/Frogger Main Song Theme (loop).mp3";
-//	}
-	public MyStage(){
 
+	public MyStage(){
+		musicPath = "src/main/resources/Frogger Main Song Theme (loop).mp3";
 	}
 
+	/**
+	 * Sets the background music for the stage
+	 */
 	public void playMusic() {
-		String musicFile = "src/main/resources/Frogger Main Song Theme (loop).mp3";
-//		String musicFile = "src/main/resources/Frogger Main Song Theme (loop).mp3";
+
+
 //		String musicFile = "src/p4_group_8_repo/Crazy-Frog-Axel-f.mp3";
 
-		Media sound = new Media(new File(musicFile).toURI().toString());
+		Media sound = new Media(new File(musicPath).toURI().toString());
 		mediaPlayer = new MediaPlayer(sound);
 		mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
 	    mediaPlayer.play();

@@ -8,6 +8,16 @@ public class ObstacleFactory extends AbstractFactory{
     }
 
 
+    /**
+     * <h1>Obstacle Factory</h1>
+     * <p>Creates an object of any of the obstacles</p>
+     * @param obstacleName Which obstacle it will be linked to
+     * @param imageLink Image of that obstacle
+     * @param size size of obstacle
+     * @param xPos Starting X-Position
+     * @param yPos Starting Y-Position
+     * @return Obstacle Type
+     */
     @Override
     public Actor getActor(String obstacleName, String imageLink, double size, double xPos, double yPos) {
         Actor obstacleType = null;

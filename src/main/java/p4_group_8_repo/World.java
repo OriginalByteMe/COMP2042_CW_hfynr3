@@ -89,6 +89,11 @@ public abstract class World extends Pane {
         timer.stop();
     }
 
+	/**
+	 * <h1>add</h1>
+	 * <p>Adds actors ImageView to the Stage</p>
+	 * @param actor imageview of actor
+	 */
 	public void add(ImageView actor) {
 		if(actor == null){
 			actor = new ImageView();

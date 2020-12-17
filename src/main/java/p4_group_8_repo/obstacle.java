@@ -22,7 +22,9 @@ public class obstacle extends MovingActor {
 	}
 
 
-
+	/**
+	 * <h1>Out of Bounds for all obstacles</h1>
+	 */
 	public void handleOutOfBounds(){
 
 		if (getX() > 600 && speed>0)

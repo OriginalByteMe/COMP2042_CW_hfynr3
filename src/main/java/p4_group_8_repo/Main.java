@@ -481,7 +481,7 @@ public class Main extends Application {
         addPlayer(game);
         addStatic(game);
         game.start();
-//        level6Stage.start();
+
     }
     public void createLevel7(){
         game = new MyStage();
@@ -507,7 +507,7 @@ public class Main extends Application {
         addPlayer(game);
         addStatic(game);
         game.start();
-//        level7Stage.start();
+
     }
     public void createLevel8(){
         game = new MyStage();
@@ -533,7 +533,6 @@ public class Main extends Application {
         addPlayer(game);
         addStatic(game);
         game.start();
-//        level8Stage.start();
     }
     public void createLevel9(){
         game = new MyStage();

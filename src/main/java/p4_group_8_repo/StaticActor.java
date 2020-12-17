@@ -5,6 +5,11 @@ public abstract class StaticActor extends Actor{
         super(ImageLink, size, xPos, yPos);
     }
 
+    /**
+     * <h1>StaticActor</h1>
+     * Used to identify all static elements and differentiate them from Moving and Player Actor
+     * @return className
+     */
     @Override
     public String getActorClassName() {
         return "StaticActor";

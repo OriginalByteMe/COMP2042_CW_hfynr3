@@ -9,7 +9,12 @@ public class FactoryProducer {
     }
 
 
-
+    /**
+     * <h1>Factory to produce factories</h1>
+     * <p>Using this we can create factory objects as by the Abstract Factory design </p>
+     * @param factoryType Name of factory
+     * @return Factory
+     */
     public static AbstractFactory getFactory(String factoryType){
         AbstractFactory factory = null;
 
