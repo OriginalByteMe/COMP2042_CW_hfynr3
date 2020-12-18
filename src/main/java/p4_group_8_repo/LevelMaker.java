@@ -1,10 +1,10 @@
 package p4_group_8_repo;
 
 public class LevelMaker {
-    private MyStage stage;
-    private ActorGroupToWindow obstacleFactory = new ActorGroupToWindow("ObstacleFactory");
-    private ActorGroupToWindow staticActorFactory = new ActorGroupToWindow("StaticActorFactory");
-    private final int sizeCar = 50,sizeTruckSmall = 120,sizeTruckBig = 200, sizeLogSmall = 140, sizeLogBig = 180, sizeLogLong = 190, sizeDryTurtle = 80, sizeWetTurtle = 80;
+    private final MyStage stage;
+    private final ActorGroupToWindow obstacleFactory = new ActorGroupToWindow("ObstacleFactory");
+    private final ActorGroupToWindow staticActorFactory = new ActorGroupToWindow("StaticActorFactory");
+    private final int sizeCar = 50,sizeTruckSmall = 120,sizeTruckBig = 200, sizeLogSmall = 140, sizeLogBig = 180, sizeLogLong = 300, sizeDryTurtle = 80, sizeWetTurtle = 80;
 
     /**
      * Allows for a levelmaker object to be created to easily add obstacles to scene's
@@ -28,7 +28,7 @@ public class LevelMaker {
         obstacleFactory.setAmount(amount);
         obstacleFactory.setStartXPos(amount * sizeCar);
 
-        directionAssign("file:src/main/resources/car1Left.png","file:src/main/resources/car1Right.png",direction,speed);
+        vehicleDirectionAssign("file:src/main/resources/car1Left.png","file:src/main/resources/car1Right.png",direction,speed);
         carLaneAssign(lane);
         carToWindow();
     }
@@ -36,7 +36,7 @@ public class LevelMaker {
         obstacleFactory.setActorType("Car");
         obstacleFactory.setAmount(amount);
         obstacleFactory.setStartXPos(amount * sizeTruckSmall); // Shift of 300
-        directionAssign("file:src/main/resources/truck1Left.png","file:src/main/resources/truck1Right.png",direction,speed);
+        vehicleDirectionAssign("file:src/main/resources/truck1Left.png","file:src/main/resources/truck1Right.png",direction,speed);
         carLaneAssign(lane);
         truckSmallToWindow();
     }
@@ -44,7 +44,7 @@ public class LevelMaker {
         obstacleFactory.setActorType("Car");
         obstacleFactory.setAmount(amount);
         obstacleFactory.setStartXPos(amount); // shift 500
-        directionAssign("file:src/main/resources/truck2Left.png","file:src/main/resources/truck2Right.png",direction,speed);
+        vehicleDirectionAssign("file:src/main/resources/truck2Left.png","file:src/main/resources/truck2Right.png",direction,speed);
         carLaneAssign(lane);
         truckBigToWindow();
     }
@@ -53,46 +53,48 @@ public class LevelMaker {
      *<h1>Adding water obstacles</h1>
      * @param amount Amount of vehicles to be added
      * @param lane Which lane on the road the vehicle will be added to
+     * @param direction Direction of obstacle
+     * @param speed Speed of obstacle
      */
-    public void addLogSmall(int amount, int lane) {
+    public void addLogSmall(int amount, int lane, char direction,int speed) {
         obstacleFactory.setActorType("Log");
         obstacleFactory.setAmount(amount);
         obstacleFactory.setStartXPos(amount); // Shift 200
         waterLaneAssign(lane);
-        obstacleFactory.setSpeed(-2);
+        waterDirectionAssign(direction,speed);
         logSmallToWindow();
     }
-    public void addLogBig(int amount, int lane) {
+    public void addLogBig(int amount, int lane, char direction,int speed) {
         obstacleFactory.setActorType("Log");
         obstacleFactory.setAmount(amount);
         obstacleFactory.setStartXPos(amount); // Shift 200
-        obstacleFactory.setSpeed(0.75);
+        waterDirectionAssign(direction,speed);
         waterLaneAssign(lane);
         logBigToWindow();
     }
-    public void addLogLong(int amount, int lane) {
+    public void addLogLong(int amount, int lane, char direction,int speed) {
         obstacleFactory.setActorType("Log");
         obstacleFactory.setAmount(amount);
         obstacleFactory.setStartXPos(amount); // Shift 300
         waterLaneAssign(lane);
-        obstacleFactory.setSpeed(-2);
+        waterDirectionAssign(direction,speed);
         logLongToWindow();
 
     }
 
-    public void addDryTurtle(int amount, int lane) {
+    public void addDryTurtle(int amount, int lane, char direction,int speed) {
         obstacleFactory.setActorType("Turtle");
         obstacleFactory.setAmount(amount);
         obstacleFactory.setStartXPos(amount * sizeDryTurtle); // Shift of 200
-        obstacleFactory.setSpeed(-1);
+        waterDirectionAssign(direction,speed);
         waterLaneAssign(lane);
         turtleToWindow();
     }
-    public void addWetTurtle(int amount,int lane){
+    public void addWetTurtle(int amount,int lane, char direction,int speed){
         obstacleFactory.setActorType("WetTurtle");
         obstacleFactory.setAmount(amount);
         obstacleFactory.setStartXPos(amount * sizeWetTurtle); // Shift of 200
-        obstacleFactory.setSpeed(-1);
+        waterDirectionAssign(direction,speed);
         waterLaneAssign(lane);
         turtleWetToWindow();
     }
@@ -124,14 +126,61 @@ public class LevelMaker {
                 break;
         }
     }
+    /**
+     * <h1>Direction and Speed assignment - Water</h1>
+     * <p>Allows for direction choice along with which speed it will go at, from 3 different presets</p>
+     * @param direction Direction of movement
+     * @param speed Speed of movement
+     */
+    public void waterDirectionAssign(char direction, int speed){
+        switch (direction) {
+            case 'L':
+                if (speed == 1) {
+                    obstacleFactory.setSpeed(-0.75);
+                } else if (speed == 2) {
+                    obstacleFactory.setSpeed(-1);
+                } else if (speed == 3) {
+                    obstacleFactory.setSpeed(-3);
+                } else {
+                    obstacleFactory.setSpeed(-1);
+                }
+                break;
+            case 'R':
+                if (speed == 1) {
+                    obstacleFactory.setSpeed(0.75);
+                } else if (speed == 2) {
+                    obstacleFactory.setSpeed(1);
+                } else if (speed == 3) {
+                    obstacleFactory.setSpeed(3);
+                } else {
+                    obstacleFactory.setSpeed(1.5);
+                }
+                break;
+            default:
+                if (speed == 1) {
+                    obstacleFactory.setSpeed(-1);
+                } else if (speed == 2) {
+                    obstacleFactory.setSpeed(-3);
+                } else {
+                    obstacleFactory.setSpeed(-1);
+                }
+                break;
+        }
+    }
 
+
+    /**
+     * <h1>Car Lane assignment</h1>
+     * <p>Has set Y-Positions for each lane in the water</p>
+     * @param lane Lane for Vehicles to be put in
+     */
     public void carLaneAssign(int lane){
         switch (lane){
             case 5:
-                obstacleFactory.setYPos(490);
+                obstacleFactory.setYPos(470);
                 break;
             case 4:
-                obstacleFactory.setYPos(535);
+                obstacleFactory.setYPos(520);
                 break;
             case 3:
                 obstacleFactory.setYPos(565);
@@ -149,14 +198,14 @@ public class LevelMaker {
     }
 
     /**
-     * <h1>Direction and Speed assignment</h1>
+     * <h1>Direction and Speed assignment - Vehicle</h1>
      * <p>Allows for direction choice along with which speed it will go at, from 3 different presets</p>
      * @param left Left image
      * @param right Right image
      * @param direction Direction of movement
      * @param speed Speed of movement
      */
-    public void directionAssign(String left,String right, char direction, double speed ) {
+    public void vehicleDirectionAssign(String left, String right, char direction, double speed ) {
         switch (direction) {
             case 'L':
                 obstacleFactory.setImageLink(left);

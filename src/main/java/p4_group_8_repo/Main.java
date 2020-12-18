@@ -41,7 +41,12 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
+    /**
+     * <h1>Start</h1>
+     * <p>Used to start the game</p>
+     * @param primaryStage The primary stage which all scenes are used on
+     * @throws Exception Throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         game = new MyStage();
@@ -57,8 +62,13 @@ public class Main extends Application {
         primaryStage.show();
         start();
     }
-//TODO: 'Find way at end of game to go back to level select screen'
 
+    /**
+     * <h1>Game Loop</h1>
+     * <p>Uses animation timer to create a game loop.</p>
+     * <p>Loop is broken when Animal class returns stop condition</p>
+     * @see AnimationTimer
+     */
     public void createTimer() {
         timer = new AnimationTimer() {
             @Override
@@ -86,14 +96,21 @@ public class Main extends Application {
         timer.start();
     }
 
-    //FIXME: 'Game ends music while moving, as well as not ending music after getting all ends'
+    /**
+     * <h1>Stopping game</h1>
+     * <p>Method calls to stop the game along with music and timer</p>
+     */
     public void stop() {
         timer.stop();
         game.stop();
         game.stopMusic();
 
     }
-
+    /**
+     * <h1>Setting the digit score</h1>
+     * <p>Assigns the number to the digits</p>
+     * @param n current score
+     */
     public void setNumber(int n) {
         for (Actor digit : score) {
             final int number = n % 10;
@@ -105,7 +122,12 @@ public class Main extends Application {
     }
 
 
-
+    /**
+     * <h1>Creating the Menu scene</h1>
+     * <p>Creates the AnchorPane and assigns all buttons and images to it</p>
+     * @param primaryStage pass primary stage to change scene to other scenes
+     * @see AnchorPane
+     */
     public void createMenu(Stage primaryStage){
         AnchorPane contents = new AnchorPane();
         contents.setPrefWidth(600);
@@ -136,7 +158,7 @@ public class Main extends Application {
         playBtn.setOnAction(e -> primaryStage.setScene(levelChoiceScene));
 
         Button scoreboardBtn = new Button("Score Board");
-        scoreboardBtn.setLayoutX(242);
+        scoreboardBtn.setLayoutX(262);
         scoreboardBtn.setLayoutY(350);
         scoreboardBtn.prefHeight(25.0);
         scoreboardBtn.prefWidth(57.0);
@@ -153,7 +175,12 @@ public class Main extends Application {
         menuScene = new Scene(contents);
 
     }
-    //FIXME:'Fix organisation of buttons'
+    /**
+     * <h1>Level Options menu</h1>
+     * <p>Consists of a lot of buttons which link to different level scenes</p>
+     * @param primaryStage pass primary stage to change scene to other scenes
+     * @see Button
+     */
     public void createLvlChooser(Stage primaryStage){
         AnchorPane contents = new AnchorPane();
         Label title= new Label("Frogger");
@@ -241,9 +268,13 @@ public class Main extends Application {
 
 
         contents.getChildren().addAll(title, level1Btn,level2Btn,level3Btn,level4Btn,level5Btn,level6Btn,level7Btn,level8Btn,level9Btn,level10Btn,backBtn);
-//        contents.getChildren().addAll(title, level1Btn,level2Btn,backBtn);
         levelChoiceScene = new Scene(contents,600,400);
     }
+    /**
+     * <h1>Game Information</h1>
+     * <p>Used to display instructions on how to play the game</p>
+     * @param primaryStage pass primary stage to change scene to other scenes
+     */
     public void createInfo(Stage primaryStage){
         AnchorPane contents = new AnchorPane();
         contents.setPrefWidth(600);
@@ -274,6 +305,11 @@ public class Main extends Application {
         infoScene = new Scene(contents);
 
     }
+    /**
+     * <h1>Display ScoreBoard</h1>
+     * <p>Displays the players scores for each level</p>
+     * @param primaryStage pass primary stage to change scene to other scenes
+     */
     public void createHSPage(Stage primaryStage){
         AnchorPane contents = new AnchorPane();
         String scoreboard = scoreKeeper.getScoreBoard();
@@ -317,10 +353,17 @@ public class Main extends Application {
         return button;
     }
 
-    // Initializing items in levels
 
 
-//FIXME: 'Optimize the positions of all the obstacles'
+
+    /**
+     * <h1>Creating levels</h1>
+     * <p>Each level is initialised in their own methods</p>
+     * <p>Each of the levels utilise LevelMaker objects to add obstacles to their scene</p>
+     * <p>Scenes are created using the game MyStage</p>
+     * @see MyStage
+     * @see LevelMaker
+     */
     public void createLevel1(){
         game = new MyStage();
         gameScene = new Scene(game, 590, 800);
@@ -335,19 +378,18 @@ public class Main extends Application {
         level1.addTruckSmall(3,5,1,'L');
 
 
-        level1.addLogBig   (2,1);
-        level1.addWetTurtle(3,2);
-        level1.addLogSmall (4,3);
-        level1.addLogBig   (3,4);
-        level1.addDryTurtle(2,5);
-        level1.addWetTurtle(1,5);
+        level1.addLogBig   (2,1,'L',2);
+        level1.addWetTurtle(3,2,'L',1);
+        level1.addLogSmall (4,3,'L',1);
+        level1.addLogBig   (3,4,'R',2);
+        level1.addDryTurtle(2,5,'L',2);
+        level1.addWetTurtle(1,5,'L',2);
 
         addPlayer(game);
         addStatic(game);
         game.start();
     }
     public void createLevel2(){
-//        level2Stage = new MyStage();
         game = new MyStage();
         gameScene = new Scene(game, 590, 800);
         backgroundImage = new BackgroundImage("file:src/main/resources/FBackground1.jpg");
@@ -363,11 +405,11 @@ public class Main extends Application {
 
 
 
-        level2.addLogBig   (3,5);
-        level2.addWetTurtle(4,4);
-        level2.addLogBig   (1,3);
-        level2.addLogSmall (2,2);
-        level2.addWetTurtle(3,1);
+        level2.addLogBig   (3,5,'L',1);
+        level2.addWetTurtle(4,4,'L',2);
+        level2.addLogBig   (1,3,'L',2);
+        level2.addLogSmall (2,2,'R',1);
+        level2.addWetTurtle(3,1,'L',1);
 
 
         addPlayer(game);
@@ -375,7 +417,6 @@ public class Main extends Application {
         game.start();
 
     }
-
     public void createLevel3(){
         game = new MyStage();
         gameScene = new Scene(game, 590, 800);
@@ -385,23 +426,22 @@ public class Main extends Application {
         LevelMaker level3 = new LevelMaker(game);
         level3.addCar(3,5,2,'R');
         level3.addCar(2,4,1,'L');
-        level3.addCar(5,3,2,'R');
-        level3.addCar(4,2,2,'L');
+        level3.addCar(4,3,2,'R');
+        level3.addTruckSmall(4,2,2,'L');
         level3.addCar(4,1,2,'R');
 
 
 
 
 
-        level3.addWetTurtle(3,1);
-        level3.addLogSmall (3,2);
-        level3.addLogLong  (1,3);
-        level3.addDryTurtle(4,4);
-        level3.addLogSmall (3,5);
+        level3.addWetTurtle(3,1,'L',1);
+        level3.addLogSmall (3,2,'R',1);
+        level3.addLogLong  (2,3,'L',1);
+        level3.addDryTurtle(4,4,'L',2);
+        level3.addLogSmall (3,5,'L',1);
         addPlayer(game);
         addStatic(game);
         game.start();
-//        level3Stage.start();
     }
     public void createLevel4(){
         game = new MyStage();
@@ -412,23 +452,22 @@ public class Main extends Application {
         level4.addCar(3,5,1,'R');
         level4.addCar(3,4,3,'L');
         level4.addCar(4,3,2,'R');
-        level4.addCar(4,2,2,'L');
+        level4.addTruckBig(4,2,2,'L');
         level4.addCar(4,1,2,'R');
 
 
 
 
 
-        level4.addWetTurtle(3,1);
-        level4.addLogSmall (2,2);
-        level4.addLogLong  (1,3);
-        level4.addWetTurtle(3,4);
-        level4.addLogBig   (2,5);
+        level4.addWetTurtle(3,1,'L',1);
+        level4.addLogSmall (2,2,'R',2);
+        level4.addLogLong  (1,3,'L',1);
+        level4.addWetTurtle(3,4,'L',2);
+        level4.addLogBig   (2,5,'L',1);
         addPlayer(game);
         addStatic(game);
         game.start();
 
-//        level4Stage.start();
     }
     public void createLevel5(){
         game = new MyStage();
@@ -436,7 +475,7 @@ public class Main extends Application {
         backgroundImage = new BackgroundImage("file:src/main/resources/FBackground1.jpg");
         game.add(backgroundImage);
         LevelMaker level5 = new LevelMaker(game);
-        level5.addCar(3,5,2,'L');
+        level5.addTruckSmall(3,5,2,'L');
         level5.addCar(4,4,1,'R');
         level5.addCar(5,3,2,'L');
         level5.addCar(4,2,2,'R');
@@ -446,16 +485,15 @@ public class Main extends Application {
 
 
 
-        level5.addWetTurtle(2,1);
-        level5.addLogSmall (2,2);
-        level5.addLogLong  (1,3);
-        level5.addWetTurtle(3,4);
-        level5.addLogBig   (1,5);
+        level5.addWetTurtle(2,1,'L',2);
+        level5.addLogSmall (2,2,'R',1);
+        level5.addLogLong  (1,3,'L',1);
+        level5.addWetTurtle(3,4,'L',2);
+        level5.addLogBig   (1,5,'L',1);
 
         addPlayer(game);
         addStatic(game);
         game.start();
-//        level5Stage.start();
     }
     public void createLevel6(){
         game = new MyStage();
@@ -471,11 +509,11 @@ public class Main extends Application {
         level6.addCar(3,1,2,'L');
 
 
-        level6.addWetTurtle(4,1);
-        level6.addLogSmall (3,2);
-        level6.addLogLong  (3,3);
-        level6.addWetTurtle(4,4);
-        level6.addLogBig   (2,5);
+        level6.addWetTurtle(4,1,'L',1);
+        level6.addLogSmall (3,2,'R',1);
+        level6.addLogLong  (3,3,'L',1);
+        level6.addWetTurtle(4,4,'L',2);
+        level6.addLogBig   (2,5,'L',1);
 
 
         addPlayer(game);
@@ -490,18 +528,18 @@ public class Main extends Application {
         game.add(backgroundImage);
 
         LevelMaker level7 = new LevelMaker(game);
-        level7.addCar(2,5,2,'L');
+        level7.addTruckBig(2,5,2,'L');
         level7.addCar(1,4,1,'R');
         level7.addCar(3,3,2,'L');
-        level7.addCar(3,2,2,'R');
+        level7.addTruckSmall(3,2,2,'R');
         level7.addCar(3,1,2,'L');
 
 
-        level7.addWetTurtle(4,1);
-        level7.addLogSmall (3,2);
-        level7.addLogLong  (3,3);
-        level7.addWetTurtle(4,4);
-        level7.addLogBig   (2,5);
+        level7.addWetTurtle(4,1,'L',1);
+        level7.addLogSmall (3,2,'R',1);
+        level7.addLogLong  (3,3,'L',1);
+        level7.addWetTurtle(4,4,'L',2);
+        level7.addLogBig   (2,5,'L',1);
 
 
         addPlayer(game);
@@ -524,11 +562,11 @@ public class Main extends Application {
 
 
 
-        level8.addDryTurtle(3,1);
-        level8.addLogSmall (3,2);
-        level8.addLogLong  (1,3);
-        level8.addWetTurtle(4,4);
-        level8.addLogBig   (1,5);
+        level8.addDryTurtle(3,1,'L',2);
+        level8.addLogSmall (3,2,'R',1);
+        level8.addLogLong  (1,3,'L',1);
+        level8.addWetTurtle(4,4,'L',2);
+        level8.addLogBig   (1,5,'L',1);
 
         addPlayer(game);
         addStatic(game);
@@ -549,17 +587,16 @@ public class Main extends Application {
 
 
 
-        level9.addWetTurtle(3,1);
-        level9.addLogSmall (2,2);
-        level9.addLogLong  (1,3);
-        level9.addLogSmall (2,4);
-        level9.addWetTurtle(2,5);
+        level9.addWetTurtle(3,1,'L',1);
+        level9.addLogSmall (2,2,'R',1);
+        level9.addLogLong  (1,3,'L',1);
+        level9.addLogSmall (2,4,'R',1);
+        level9.addWetTurtle(2,5,'L',2);
 
 
         addPlayer(game);
         addStatic(game);
         game.start();
-//        level9Stage.start();
     }
     public void createLevel10(){
         game = new MyStage();
@@ -576,22 +613,27 @@ public class Main extends Application {
 
 
 
-        level10.addWetTurtle (2,1);
-        level10.addLogSmall  (2,2);
-        level10.addLogLong   (1,3);
-        level10.addWetTurtle (4,4);
-        level10.addWetTurtle (2,5);
+        level10.addWetTurtle (2,1,'L',2);
+        level10.addLogSmall  (2,2,'R',1);
+        level10.addLogLong   (1,3,'L',1);
+        level10.addWetTurtle (4,4,'L',1);
+        level10.addWetTurtle (2,5,'L',2);
 
 
         addPlayer(game);
         addStatic(game);
         game.start();
-//        level10Stage.start();
     }
 
 
 
 
+    /**
+     * <h1>Add Player to Stage</h1>
+     * <p>Adds player to the stage to be used in scenes</p>
+     * @param stage Stage on which scenes will be built on
+     * @see ActorGroupToWindow
+     */
     public void addPlayer(MyStage stage) {
         ActorGroupToWindow grouper = new ActorGroupToWindow("PlayerFactory");
         grouper.setStartXPos(300);
@@ -599,7 +641,11 @@ public class Main extends Application {
         grouper.setAmount(1);
         playerToWindow(grouper,stage);
     }
-
+    /**
+     * <h1>Adding digit to window</h1>
+     * @param stage Stage on which scenes will be built on
+     * @see ActorGroupToWindow
+     */
     public void addStatic(MyStage stage) {
         ActorGroupToWindow grouper = new ActorGroupToWindow("StaticActorFactory");
         grouper.setActorType("Digit");
