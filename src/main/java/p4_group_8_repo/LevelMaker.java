@@ -249,7 +249,6 @@ public void addStatic() {
 }
 
 
-//FIXME: 'Get the correct sizes for each obstacle'
 
     /**
      * <h1>Adding obstacle to window</h1>

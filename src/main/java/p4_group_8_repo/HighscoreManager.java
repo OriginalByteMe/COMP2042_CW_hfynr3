@@ -5,9 +5,6 @@ import javafx.scene.control.Alert;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
-//http://forum.codecall.net/topic/50071-making-a-simple-high-score-system/
-//TODO:'Find way to put all highscore into a scene view'
-//TODO:'Order scores according to level'
 public class HighscoreManager {
 
     /**
@@ -106,7 +103,6 @@ public class HighscoreManager {
 
 
         try {
-            //FIXME:'Change input method, current method causes file to be written in unreadable format'
             outputStream = new ObjectOutputStream(new FileOutputStream(HIGHSCORE_FILE));
             outputStream.writeObject(scores);
         } catch (FileNotFoundException e) {

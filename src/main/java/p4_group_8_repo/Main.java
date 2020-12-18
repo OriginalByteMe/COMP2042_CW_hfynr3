@@ -19,7 +19,7 @@ import java.util.List;
  */
 
 
-// https://gamedevelopment.tutsplus.com/tutorials/introduction-to-javafx-for-game-development--cms-23835
+
 public class Main extends Application {
 
     private AnimationTimer timer;
