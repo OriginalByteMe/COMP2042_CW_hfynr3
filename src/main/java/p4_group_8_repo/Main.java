@@ -7,18 +7,13 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.List;
-import java.util.Scanner;
 /**
  * @author Noah Rijkaard 20123697
  */
@@ -28,7 +23,6 @@ import java.util.Scanner;
 public class Main extends Application {
 
     private AnimationTimer timer;
-    private MyStage menu;
     private List<Actor> players;
     private List<Actor> score;
     private Scene menuScene, infoScene, levelChoiceScene, gameScene, scoreboardScene;

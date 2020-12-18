@@ -5,6 +5,5 @@ module Noah.Frogger {
     requires javafx.graphics;
     requires javafx.swing;
 
-
     opens p4_group_8_repo;
 }
