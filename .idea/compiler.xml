@@ -19,9 +19,8 @@
         <module name="Noah_Frogger" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
+    <bytecodeTargetLevel target="11">
       <module name="Noah_Frogger" target="11" />
-      <module name="wrapper" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>

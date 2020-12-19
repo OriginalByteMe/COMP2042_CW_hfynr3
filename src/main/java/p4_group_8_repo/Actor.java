@@ -56,7 +56,6 @@ public abstract class Actor extends ImageView{
     }
 
 
-    // Seemingly useless code might delete later
 
     public <A extends Actor> A getOneIntersectingObject(java.lang.Class<A> cls) {
         ArrayList<A> someArray = new ArrayList<A>();
@@ -72,7 +71,7 @@ public abstract class Actor extends ImageView{
     // For Reference:
     // https://netopyr.com/2012/03/09/creating-a-sprite-animation-with-javafx/
     // https://stackoverflow.com/questions/47876381/javafx-and-sprite-animation-how-do-i-make-an-animation-cycle-to-change-pictures
-    //
+
 
     /**
      * <h1>Animation Machine</h1>

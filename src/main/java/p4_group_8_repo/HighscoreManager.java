@@ -179,10 +179,11 @@ public class HighscoreManager {
         try {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("You Have Won The Game!");
-
+            alert.setHeaderText("Highest score: ");
             alert.setHeaderText(getHighscoreString());
 
-            alert.setContentText("Highest Possible Score: 800");
+
+
             alert.show();
         } catch(Exception e) {
 
