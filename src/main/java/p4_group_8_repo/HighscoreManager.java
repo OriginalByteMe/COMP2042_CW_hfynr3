@@ -137,7 +137,7 @@ public class HighscoreManager {
         int biggestScore = 0;
         int i = 0;
         int x = scores.size();
-
+        int name = 0;
 
         for(i = 0; i<x;i++){
             int score = scores.get(i).getScore();
@@ -178,13 +178,10 @@ public class HighscoreManager {
 
         try {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("You Have Won The Game!");
-            alert.setHeaderText("Highest score: ");
+            alert.setTitle("You Have Won The Game!\nHighscore:");
             alert.setHeaderText(getHighscoreString());
-
-
-
             alert.show();
+
         } catch(Exception e) {
 
             e.printStackTrace();

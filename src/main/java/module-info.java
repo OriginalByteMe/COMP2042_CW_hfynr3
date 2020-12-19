@@ -1,4 +1,4 @@
-module Noah.Frogger {
+module COMP2042.CW.hfynr3 {
     requires javafx.fxml;
     requires javafx.controls;
     requires javafx.media;

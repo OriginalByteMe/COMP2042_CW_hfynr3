@@ -16,11 +16,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Noah_Frogger" />
+        <module name="COMP2042_CW_hfynr3" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="11">
-      <module name="Noah_Frogger" target="11" />
+      <module name="COMP2042_CW_hfynr3" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
